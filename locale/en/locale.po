@@ -3,3 +3,9 @@ msgstr "Edios"
 
 msgid "plugins.themes.eidos.description"
 msgstr "An official theme from PKP that is highly configurable."
+
+msgid "plugins.themes.eidos.changeLanguage"
+msgstr "Change Language"
+
+msgid "plugins.themes.eidos.loggedInAs"
+msgstr "Logged in as <strong>{$username}</strong>"

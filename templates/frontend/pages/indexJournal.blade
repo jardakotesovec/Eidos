@@ -1,23 +1,7 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', $currentLocale) }}" xml:lang="{{ str_replace('_', '-', $currentLocale) }}">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ strip_tags($currentJournal->getLocalizedName()) }}</title>
-    @loadHeader(['context' => 'frontend'])
-    @loadStylesheet(['context' => 'frontend'])
-</head>
-
-<body
-    dir="{$currentLocaleLangDir|escape|default:"ltr"}"
->
+<x-eidostheme::layout>
 
     <h1>
         Homepage
     </h1>
-    @loadScript(['context' => 'frontend'])
 
-</body>
-
-</html>
+</x-eidostheme::layout>

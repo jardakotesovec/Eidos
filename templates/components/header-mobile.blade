@@ -1,0 +1,91 @@
+@php
+    $siteName = $currentContext ? $currentContext->getLocalizedName() : $site->getLocalizedName();
+    $dropdownId = 'header-mobile-dropdown';
+@endphp
+
+<header class="header-mobile">
+    <div class="header-mobile-inner">
+        <div class="header-mobile-context">
+            <a href="{{ ViewHelper::url(['page' => 'issue']) }}" class="tab-focus">
+                @if ($displayPageHeaderLogo)
+                    <h1 class="sr-only">
+                        {{ $siteName }}
+                    </h1>
+                    <img class="header-mobile-logo"
+                        src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}">
+                @else
+                    @php
+                        $length = strlen($siteName);
+                        $size = $length <= 20 ? 'xs' : ($length <= 40 ? 'sm' : ($length <= 80 ? 'md' : 'lg'));
+                    @endphp
+                    <div class="header-mobile-name header-mobile-name-{{ $size }}">
+                        {{ $currentContext->getLocalizedName() }}
+                    </div>
+                @endif
+            </a>
+        </div>
+        <button class="header-mobile-button" type="button" data-mobile-menu="#{{ $dropdownId }}">
+            <span class="sr-only">
+                {{ __('plugins.themes.eidos.menu') }}
+            </span>
+            <span class="header-mobile-button-icon" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </button>
+    </div>
+    <div class="header-mobile-dropdown" id="{{ $dropdownId }}">
+        <div class="header-mobile-dropdown-inner">
+            <form
+                action="{{ ViewHelper::url(['page' => 'search']) }}"
+                class="header-mobile-search-input"
+                method="GET"
+            >
+                <label for="header-mobile-search-input" class="sr-only">
+                    {{ __('common.search') }}
+                </label>
+                @include('components/icons/search')
+                <input
+                    type="search"
+                    name="query"
+                    id="header-mobile-search-input"
+                    placeholder="{{ __('common.search') }}"
+                    value="{$value|escape}"
+                >
+            </form>
+            <nav class="header-mobile-primary-menu" id="skip-to-nav-mobile">
+                @loadMenu(['name' => 'primary', 'id' => 'nav-mobile-primary', 'path' => 'components/menu'])
+            </nav>
+            @if (count($locales) > 1)
+                <div class="header-mobile-languages">
+                    <h2 class="sr-only" id="skip-to-language-mobile">
+                        {{ __('plugins.themes.eidos.changeLanguage') }}
+                    </h2>
+                    @include('components/icons/circle-languages')
+                    <div class="header-mobile-languages-list">
+                        @foreach ($locales as $localeKey => $localeName)
+                            <a @class([
+                                'header-mobile-language',
+                                'header-mobile-language-selected' => $localeKey === $currentLocale,
+                                'tab-focus',
+                            ])
+                                href="{{ ViewHelper::url(['page' => 'user', 'op' => 'setLocale', 'path' => $localeKey]) }}">
+                                {{ $localeName }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+            @if ($isUserLoggedIn)
+                <div class="header-mobile-logged-in-as">
+                    @include('components/icons/circle-user')
+                    <x-eidostheme::logged-in-as />
+                </div>
+            @endif
+            <nav class="header-mobile-utility-menu" id="skip-to-user-nav-mobile">
+                @loadMenu(['name' => 'user', 'id' => 'nav-mobile-user', 'path' => 'components/menu'])
+            </nav>
+        </div>
+    </div>
+</header>

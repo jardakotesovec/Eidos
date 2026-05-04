@@ -1,7 +1,7 @@
 /**
  * Custom JS for the theme
  */
-import example from './js/example'
+import mobileMenu from './js/mobile-menu'
 
 /**
  * Custom CSS for the theme
@@ -14,5 +14,5 @@ import './main.css'
  * Run our custom JS when the page is fully loaded.
  */
 document.addEventListener('DOMContentLoaded',function() {
-  example.run()
+  mobileMenu.init()
 })

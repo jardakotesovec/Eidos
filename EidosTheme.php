@@ -10,6 +10,7 @@ class EidosTheme extends ThemePlugin {
 
     public function init() {
         $this->addViteAssets(['src/main.js']);
+        $this->addMenuArea(['primary', 'user', 'homepage', 'policy']);
     }
 
     public function getDisplayName() {

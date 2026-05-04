@@ -1,0 +1,45 @@
+:root {
+  --color-background: white;
+  --color-primary: #000;
+  --color-secondary: #00519F;
+  --color-text: rgba(0, 0, 0, 0.85);
+  --color-text-on-primary: white;
+  --color-error: #c00;
+
+  --color-header-background: var(--color-primary);
+  --color-header-text: var(--color-text-on-primary);
+  --color-page-background: var(--color-background);
+  --color-page-text: var(--color-text);
+  --color-page-links: var(--color-secondary);
+  --color-button-background: var(--color-background);
+  --color-button-text: var(--color-secondary);
+  --color-block-background: var(--color-primary);
+  --color-block-text: var(--color-text-on-primary);
+  --color-overlay-background: var(--color-background);
+  --color-overlay-text: var(--color-text);
+  --color-footer-background: var(--color-primary);
+  --color-footer-text: var(--color-secondary);
+
+  --font-base: "Noto Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-titles: var(--font-base);
+  --font-actions: var(--font-base);
+
+  --radius: 0.5rem;
+  --border-width: 1px;
+
+  --overlay-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+  --overlay-radius: var(--radius);
+
+  --button-radius: 9999px;
+  --search-radius: 9999px;
+  --input-radius: var(--radius);
+  --input-border-width: var(--border-width);
+}
+
+@custom-media --sm (min-width: 40rem); /* 640px */
+@custom-media --md (min-width: 48rem); /* 768px */
+@custom-media --lg (min-width: 64rem); /* 1024px */
+@custom-media --xl (min-width: 80rem); /* 1200px */
+@custom-media --2xl (min-width: 96rem); /* 1536px */
+@custom-media --3xl (min-width: 120rem); /* 1920px */
+@custom-media --4xl (min-width: 160rem); /* 2560px */
