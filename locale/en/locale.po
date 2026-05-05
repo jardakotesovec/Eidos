@@ -9,3 +9,6 @@ msgstr "Change Language"
 
 msgid "plugins.themes.eidos.loggedInAs"
 msgstr "Logged in as <strong>{$username}</strong>"
+
+msgid "plugins.themes.eidos.loginOrRegister"
+msgstr "Login or Register"

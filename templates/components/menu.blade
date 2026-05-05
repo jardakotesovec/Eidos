@@ -22,11 +22,11 @@ This template displays a NavigationMenu in a vertical list.
             <li class="menu-item {{ $liClass }}">
                 @if (!$item->navigationMenuItem->getIsChildVisible())
                     <a class="menu-button" href="{{ $item->navigationMenuItem->getUrl() }}">
-                        {{ $item->navigationMenuItem->getLocalizedTitle() }}
+                        {!! $item->navigationMenuItem->getLocalizedTitle() !!}
                     </a>
                 @else
                     <button class="menu-button">
-                        {{ $item->navigationMenuItem->getLocalizedTitle() }}
+                        {!! $item->navigationMenuItem->getLocalizedTitle() !!}
                     </button>
                     <div class="menu-submenu">
                         <x-eidostheme::menu :items="$item->children" />

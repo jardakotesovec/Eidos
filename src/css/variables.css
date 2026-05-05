@@ -24,14 +24,14 @@
   --font-titles: var(--font-base);
   --font-actions: var(--font-base);
 
-  --radius: 0.5rem;
+  --radius: 0.25rem;
   --border-width: 1px;
 
   --overlay-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
   --overlay-radius: var(--radius);
 
-  --button-radius: 9999px;
-  --search-radius: 9999px;
+  --button-radius: var(--radius);
+  --search-radius: var(--radius);
   --input-radius: var(--radius);
   --input-border-width: var(--border-width);
 }
@@ -39,7 +39,7 @@
 @custom-media --sm (min-width: 40rem); /* 640px */
 @custom-media --md (min-width: 48rem); /* 768px */
 @custom-media --lg (min-width: 64rem); /* 1024px */
-@custom-media --xl (min-width: 80rem); /* 1200px */
+@custom-media --xl (min-width: 75rem); /* 1200px */
 @custom-media --2xl (min-width: 96rem); /* 1536px */
 @custom-media --3xl (min-width: 120rem); /* 1920px */
 @custom-media --4xl (min-width: 160rem); /* 2560px */

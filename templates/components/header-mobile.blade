@@ -51,41 +51,50 @@
                     name="query"
                     id="header-mobile-search-input"
                     placeholder="{{ __('common.search') }}"
-                    value="{$value|escape}"
                 >
             </form>
             <nav class="header-mobile-primary-menu" id="skip-to-nav-mobile">
                 @loadMenu(['name' => 'primary', 'id' => 'nav-mobile-primary', 'path' => 'components/menu'])
             </nav>
-            @if (count($locales) > 1)
-                <div class="header-mobile-languages">
-                    <h2 class="sr-only" id="skip-to-language-mobile">
-                        {{ __('plugins.themes.eidos.changeLanguage') }}
-                    </h2>
-                    @include('components/icons/circle-languages')
-                    <div class="header-mobile-languages-list">
-                        @foreach ($locales as $localeKey => $localeName)
-                            <a @class([
-                                'header-mobile-language',
-                                'header-mobile-language-selected' => $localeKey === $currentLocale,
-                                'tab-focus',
-                            ])
-                                href="{{ ViewHelper::url(['page' => 'user', 'op' => 'setLocale', 'path' => $localeKey]) }}">
-                                {{ $localeName }}
-                            </a>
-                        @endforeach
+            <div class="header-mobile-dropdown-group">
+                @if (count($locales) > 1)
+                    <div class="header-mobile-languages">
+                        <h2 class="sr-only" id="skip-to-language-mobile">
+                            {{ __('plugins.themes.eidos.changeLanguage') }}
+                        </h2>
+                        @include('components/icons/circle-languages')
+                        <div class="header-mobile-languages-list">
+                            @foreach ($locales as $localeKey => $localeName)
+                                <a @class([
+                                    'header-mobile-language',
+                                    'header-mobile-language-selected' => $localeKey === $currentLocale,
+                                    'tab-focus',
+                                ])
+                                    href="{{ ViewHelper::url(['page' => 'user', 'op' => 'setLocale', 'path' => $localeKey]) }}">
+                                    {{ $localeName }}
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
+                @endif
+                <div class="header-mobile-user-group">
+                    <div class="header-mobile-logged-in-as">
+                        @include('components/icons/circle-user')
+                        @if ($isUserLoggedIn)
+                            <x-eidostheme::logged-in-as />
+                        @else
+                            <a class="header-mobile-login" href="{{ ViewHelper::url(['page' => 'login']) }}">
+                                {{ __('plugins.themes.eidos.loginOrRegister') }}
+                            </span>
+                        @endif
+                    </div>
+                    @if ($isUserLoggedIn)
+                        <nav class="header-mobile-user-menu" id="skip-to-user-nav-mobile">
+                            @loadMenu(['name' => 'user', 'id' => 'nav-mobile-user', 'path' => 'components/menu'])
+                        </nav>
+                    @endif
                 </div>
-            @endif
-            @if ($isUserLoggedIn)
-                <div class="header-mobile-logged-in-as">
-                    @include('components/icons/circle-user')
-                    <x-eidostheme::logged-in-as />
-                </div>
-            @endif
-            <nav class="header-mobile-utility-menu" id="skip-to-user-nav-mobile">
-                @loadMenu(['name' => 'user', 'id' => 'nav-mobile-user', 'path' => 'components/menu'])
-            </nav>
+            </div>
         </div>
     </div>
 </header>

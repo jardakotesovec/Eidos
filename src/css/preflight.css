@@ -4,6 +4,10 @@
  */
 @import "tailwindcss";
 
+@theme {
+  --breakpoint-xl: 75rem; /* 1200px */
+}
+
 body {
   background: var(--color-page-background);
   color: var(--color-page-text);
