@@ -1,0 +1,31 @@
+{{--
+
+Basic Layout
+
+This is the layout used for basic HTML content pages,
+like the about or contact page. It is also used for
+custom pages.
+
+--}}
+
+<x-eidostheme::layout title="{{ $title }}" description="{!! $description !!}">
+
+    <div class="page">
+        <main class="page-wrapper" id="skip-to-main">
+            <div class="page-heading">
+                <h1 class="page-title">
+                    {{ $title }}
+                </h1>
+                @if ($description)
+                    <div class="page-description">
+                        {!! $description !!}
+                    </div>
+                @endif
+            </div>
+            <div class="page-content html-text">
+                {{ $slot }}
+            </div>
+        </main>
+    </div>
+
+</x-eidostheme::layout>
