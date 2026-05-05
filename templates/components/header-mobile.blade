@@ -11,8 +11,11 @@
                     <h1 class="sr-only">
                         {{ $siteName }}
                     </h1>
-                    <img class="header-mobile-logo"
-                        src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}">
+                    <img
+                        alt="{{ $displayPageHeaderLogo['alt']}}"
+                        class="header-mobile-logo"
+                        src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}"
+                    >
                 @else
                     @php
                         $length = strlen($siteName);
