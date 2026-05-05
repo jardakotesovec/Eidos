@@ -6,6 +6,18 @@
     <h1>
         Homepage
     </h1>
+
+    @php
+        $items = [
+            ['name' => 'a', 'Lorem Ipsum'],
+            ['name' => 'b', 'Dolor Sitamet'],
+            ['name' => 'c', 'Hello There'],
+        ];
+    @endphp
+
+    <PkpDropdownMenu v-bind='{{ json_encode(['items' => $items]) }}' align="end">
+    </PkpDropdownMenu>
+
     <p>1</p>
     <p>1</p>
     <p>1</p>
