@@ -2,14 +2,6 @@
  * Import tailwind dependencies, including a reset of
  * default browser styles.
  */
-@custom-media --breakpoint-sm (min-width: 40rem); /* 640px */
-@custom-media --breakpoint-md (min-width: 48rem); /* 768px */
-@custom-media --breakpoint-lg (min-width: 64rem); /* 1024px */
-@custom-media --breakpoint-xl (min-width: 75rem); /* 1200px */
-@custom-media --breakpoint-2xl (min-width: 96rem); /* 1536px */
-@custom-media --breakpoint-3xl (min-width: 120rem); /* 1920px */
-@custom-media --breakpoint-4xl (min-width: 160rem); /* 2560px */
-
 @import './css/variables.css';
 @import './css/preflight.css';
 @import './css/utilities/input.css';
