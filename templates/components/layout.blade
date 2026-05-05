@@ -24,10 +24,13 @@ This is the layout used for most pages on the site.
 </head>
 
 <body
-    {{ $attributes->merge([
-        'class' => $bodyClasses,
-        'dir' => $currentLocaleLangDir ?? 'ltr',
-    ]) }}>
+    {{
+        $attributes->merge([
+            'class' => $bodyClasses,
+            'dir' => $currentLocaleLangDir ?? 'ltr',
+        ])
+    }}
+>
 
     <x-eidostheme::header-mobile />
     <x-eidostheme::header-desktop />
