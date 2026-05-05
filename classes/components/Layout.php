@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\View as ViewFacade;
+use PKP\facades\Locale;
+use PKP\i18n\LocaleMetadata;
 
 class Layout extends Component
 {
@@ -15,7 +17,7 @@ class Layout extends Component
         public string $bodyClass = '',
         public string $head = '',
     ) {
-        //
+        $this->addGlobalData();
     }
 
     public function render(): View|Closure|string
@@ -68,5 +70,33 @@ class Layout extends Component
         }
 
         return join(' ', $classes);
+    }
+
+    /**
+     * Add global template data
+     */
+    protected function addGlobalData(): void
+    {
+        view()->share('locales', $this->getLocales());
+    }
+
+    /**
+     * Get an array of all locales supported by the
+     * current context or site.
+     */
+    protected function getLocales(): array
+    {
+        $request = Application::get()->getRequest();
+        $context = $request->getContext();
+
+        $locales = Locale::getFormattedDisplayNames(
+            isset($context)
+                ? $context->getSupportedLocales()
+                : $request->getSite()->getSupportedLocales(),
+            Locale::getLocales(),
+            LocaleMetadata::LANGUAGE_LOCALE_ONLY
+        );
+
+        return $locales;
     }
 }
