@@ -1,27 +1,34 @@
 <!doctype html>
-<html
-  lang="{{ str_replace('_', '-', $currentLocale) }}"
-  xml:lang="{{ str_replace('_', '-', $currentLocale) }}"
->
+<html lang="{{ str_replace('_', '-', $currentLocale) }}" xml:lang="{{ str_replace('_', '-', $currentLocale) }}">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ strip_tags($currentJournal->getLocalizedName()) }}</title>
+    <title>{{ $pageTitle }}</title>
+    @if ($description)
+        <meta name="description" content="{{ strip_tags($description) }}">
+    @endif
     @loadHeader(['context' => 'frontend'])
     @loadStylesheet(['context' => 'frontend'])
+    @if ($head && !$head->isEmpty())
+        {{ $head }}
+    @endif
 </head>
 
-<body dir="{{ $currentLocaleLangDir ?? 'ltr' }}">
+<body
+    {{ $attributes->merge([
+        'class' => $bodyClasses,
+        'dir' => $currentLocaleLangDir ?? 'ltr',
+    ]) }}>
 
-  <x-eidostheme::header-mobile />
-  <x-eidostheme::header-desktop />
+    <x-eidostheme::header-mobile />
+    <x-eidostheme::header-desktop />
 
-  {{ $slot }}
+    {{ $slot }}
 
-  <x-eidostheme::footer />
+    <x-eidostheme::footer />
 
-  @loadScript(['context' => 'frontend'])
+    @loadScript(['context' => 'frontend'])
 </body>
 
 </html>

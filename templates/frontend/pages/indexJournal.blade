@@ -1,4 +1,10 @@
-<x-eidostheme::layout>
+<x-eidostheme::layout
+    title="{{ $currentContext->getLocalizedName() }}"
+    description="{{ $currentContext->getLocalizedData('description') }}"
+>
+    <x-slot:head>
+        <meta name="test" content="hello there.">
+    </x-slot:head>
 
     <h1>
         Homepage
