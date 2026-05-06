@@ -5,7 +5,9 @@ use APP\core\Application;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View as ViewFacade;
+use PKP\context\Context;
 use PKP\facades\Locale;
 use PKP\i18n\LocaleMetadata;
 
@@ -98,6 +100,7 @@ class Layout extends Component
         view()->share('contextName', $this->contextName());
         view()->share('getStringSize', [self::class, 'getStringSize']);
         view()->share('locales', $this->getLocales());
+        view()->share('publicationIds', $this->getPublicationIds());
     }
 
     /**
@@ -118,5 +121,40 @@ class Layout extends Component
         );
 
         return $locales;
+    }
+
+    /**
+     * Get an array of ISSNs and other publication IDs
+     *
+     * @return Collection
+     */
+    protected function getPublicationIds() : Collection
+    {
+        $context = Application::get()->getRequest()->getContext();
+
+        $ids = new Collection();
+
+        if ($context->getData('printIssn')) {
+            $ids->add([
+                'name' => __('journal.issn'),
+                'value' => $context->getData('printIssn'),
+            ]);
+        }
+
+        if ($context->getData('onlineIssn')) {
+            $ids->add([
+                'name' => __('metadata.property.displayName.eissn'),
+                'value' => $context->getData('onlineIssn'),
+            ]);
+        }
+
+        if ($context->getData(Context::SETTING_DOI_PREFIX)) {
+            $ids->add([
+                'name' => __('manager.dois.title'),
+                'value' => $context->getData(Context::SETTING_DOI_PREFIX),
+            ]);
+        }
+
+        return $ids;
     }
 }

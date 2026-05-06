@@ -25,7 +25,7 @@ msgstr "Choose the layout of the logo and navigation menus in the header of your
 msgid "plugins.themes.eidos.option.header.default"
 msgstr "Default"
 
-msgid "plugins.themes.eidos.option.header.default-center"
+msgid "plugins.themes.eidos.option.header.default-boxed"
 msgstr "Boxed Layout"
 
 msgid "plugins.themes.eidos.option.header.line"

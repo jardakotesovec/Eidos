@@ -27,7 +27,7 @@
                 @endif
             </div>
         @endif
-        <div class="header-desktop-inner-content">
+        <div class="header-desktop-row">
             <div class="header-desktop-context">
                 <a href="{{ ViewHelper::url(['page' => 'index']) }}" class="tab-focus">
                     @if ($displayPageHeaderLogo)
@@ -92,10 +92,18 @@
         </div>
     </div>
     @if (in_array($activeTheme->getOption('header'), ['default']))
-        <div class="header-desktop-bottom-row">
+        <div class="header-desktop-row">
             <nav class="header-desktop-nav-main" id="skip-to-nav-desktop">
                 @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
             </nav>
+            <div class="header-desktop-pubids">
+                @foreach ($publicationIds as $publicationId)
+                    <span class="header-desktop-pubid">
+                        <span class="header-desktop-pubid-name">{{ $publicationId['name'] }}</span>
+                        <span>{{ $publicationId['value'] }}</span>
+                    </span>
+                @endforeach
+            </div>
         </div>
     @endif
     @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['below', 'below-center']))

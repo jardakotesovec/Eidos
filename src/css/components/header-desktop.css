@@ -15,11 +15,13 @@
   color: var(--color-header-text);
 }
 
-.header-desktop-inner-content {
+.header-desktop-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem var(--inline-padding);
+  gap: 1rem;
+  padding-left: var(--inline-padding);
+  padding-right: var(--inline-padding);
 }
 
 .header-desktop-context {
@@ -27,6 +29,8 @@
   align-items: center;
   gap: 2rem;
   max-width: 50%;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .header-desktop-logo {
@@ -75,6 +79,21 @@
 
 .header-desktop-user-icon {
   --button-x-padding: 0.5rem;
+}
+
+.header-desktop-pubids {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-desktop-pubid {
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.header-desktop-pubid-name {
+  font-weight: 500;
 }
 
 /**
