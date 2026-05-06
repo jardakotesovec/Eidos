@@ -19,7 +19,7 @@ html {
   scroll-padding-top: 10rem;
 }
 
-@media (--xl) {
+@media (min-width: 75rem) {
 
   html {
     scroll-padding-top: 20rem;
