@@ -71,10 +71,10 @@
   & .menu-dropdowns-content {
     min-width: 20rem;
   }
+}
 
-  & .menu-dropdowns-button {
-    padding: 0.5rem;
-  }
+.header-desktop-user-icon {
+  --button-x-padding: 0.5rem;
 }
 
 /**
