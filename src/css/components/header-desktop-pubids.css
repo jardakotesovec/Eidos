@@ -1,0 +1,15 @@
+.header-desktop-pubids {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-desktop-pubid {
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.header-desktop-pubid-name {
+  font-weight: 500;
+  margin-right: 0.25em;
+}

@@ -1,0 +1,8 @@
+<div class="header-desktop-pubids">
+    @foreach ($publicationIds as $publicationId)
+        <span class="header-desktop-pubid">
+            <span class="header-desktop-pubid-name">{{ $publicationId['name'] }}</span>
+            <span>{{ $publicationId['value'] }}</span>
+        </span>
+    @endforeach
+</div>

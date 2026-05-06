@@ -1,0 +1,30 @@
+.header-desktop-boxed {
+
+  & .header-desktop-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  & .header-desktop-utility-menu {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  & .header-desktop-row:has(.header-desktop-context) {
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  & .header-desktop-context {
+    padding: 0;
+  }
+}
+
+.header-desktop-boxed-line {
+  width: 100%;
+  border-bottom: 1px solid var(--color-header-text);
+}

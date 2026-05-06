@@ -27,67 +27,48 @@
                 @endif
             </div>
         @endif
-        <div class="header-desktop-row">
-            <div class="header-desktop-context">
-                <a href="{{ ViewHelper::url(['page' => 'index']) }}" class="tab-focus">
-                    @if ($displayPageHeaderLogo)
-                        <div class="sr-only">
-                            {{ $currentContext->getLocalizedName() }}
-                        </div>
-                        <img class="header-desktop-logo"
-                            src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}">
-                    @else
-                        <div class="header-desktop-name header-desktop-name-{{ $getStringSize($contextName) }}">
-                            {{ $currentContext->getLocalizedName() }}
+        <div class="header-desktop-inner-content">
+            @if (in_array($activeTheme->getOption('header'), ['boxed']))
+                <div class="header-desktop-row">
+                    <x-eidostheme::header-desktop-pubids />
+                    <x-eidostheme::header-utility-menu />
+                </div>
+                <div class="header-desktop-row">
+                    <div class="header-desktop-boxed-line"></div>
+                </div>
+            @endif
+            <div class="header-desktop-row">
+                <div class="header-desktop-context">
+                    <a href="{{ ViewHelper::url(['page' => 'index']) }}" class="tab-focus">
+                        @if ($displayPageHeaderLogo)
+                            <div class="sr-only">
+                                {{ $currentContext->getLocalizedName() }}
+                            </div>
+                            <img class="header-desktop-logo"
+                                src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}">
+                        @else
+                            <div class="header-desktop-name header-desktop-name-{{ $getStringSize($contextName) }}">
+                                {{ $currentContext->getLocalizedName() }}
+                            </div>
+                        @endif
+                    </a>
+                    @if (
+                        $displayPageHeaderLogo &&
+                            $activeTheme->getLocalizedOption('tagline') &&
+                            in_array($activeTheme->getOption('header'), ['default', 'boxed']))
+                        <div class="header-desktop-tagline">
+                            {{ $activeTheme->getLocalizedOption('tagline') }}
                         </div>
                     @endif
-                </a>
-                @if (
-                    $displayPageHeaderLogo &&
-                        $activeTheme->getLocalizedOption('tagline') &&
-                        in_array($activeTheme->getOption('header'), ['default', 'defaultBoxed']))
-                    <div class="header-desktop-tagline">
-                        {{ $activeTheme->getLocalizedOption('tagline') }}
-                    </div>
+                </div>
+                @if (in_array($activeTheme->getOption('header'), ['boxed', 'line']))
+                    <nav class="header-desktop-nav-main-line" id="skip-to-nav-desktop">
+                        @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
+                    </nav>
                 @endif
-            </div>
-            @if ($activeTheme->getOption('header') === 'line')
-                <nav class="header-desktop-nav-main-line" id="skip-to-nav-desktop">
-                    @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
-                </nav>
-            @endif
-            <div class="header-desktop-utility menu-dropdowns menu-dropdowns-align-end" data-vue-root>
-                <navigation-menu-root class="menu-dropdowns-nav">
-                    <navigation-menu-list class="menu-dropdowns-list">
-                        <navigation-menu-item class="menu-dropdowns-item">
-                            <navigation-menu-link
-                                class="menu-dropdowns-button"
-                                href="{{ ViewHelper::url(['page' => 'search']) }}"
-                            >
-                                @include('components/icons/search')
-                                {{ __('common.search') }}
-                            </navigation-menu-link>
-                        </navigation-menu-item>
-                        <navigation-menu-item class="menu-dropdowns-item">
-                            <navigation-menu-trigger
-                                aria-label={{ __('plugins.themes.eidos.account') }}
-                                class="header-desktop-user-icon menu-dropdowns-button tab-focus"
-                                id="skip-to-user-nav-desktop"
-                            >
-                                @include('components/icons/circle-user')
-                                <div class="menu-dropdowns-arrow" aria-hidden="true">
-                                    <svg width="10" height="5" rounded="false" viewBox="0 0 12 6" preserveAspectRatio="none" class="dropdown-arrow"><path d="M0 0L6 6L12 0"></path></svg>
-                                </div>
-                            </navigation-menu-trigger>
-                            <navigation-menu-content class="menu-dropdowns-content dropdown-content">
-                                <x-eidostheme::user-options
-                                    skipToLanguageId="skip-to-language-desktop"
-                                    skipToUserNavId="skip-to-user-nav-desktop"
-                                />
-                            </navigation-menu-content>
-                        </navigation-menu-item>
-                    </navigation-menu-list>
-                </navigation-menu-root>
+                @if (in_array($activeTheme->getOption('header'), ['default', 'line']))
+                    <x-eidostheme::header-utility-menu />
+                @endif
             </div>
         </div>
     </div>
@@ -96,14 +77,7 @@
             <nav class="header-desktop-nav-main" id="skip-to-nav-desktop">
                 @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
             </nav>
-            <div class="header-desktop-pubids">
-                @foreach ($publicationIds as $publicationId)
-                    <span class="header-desktop-pubid">
-                        <span class="header-desktop-pubid-name">{{ $publicationId['name'] }}</span>
-                        <span>{{ $publicationId['value'] }}</span>
-                    </span>
-                @endforeach
-            </div>
+            <x-eidostheme::header-desktop-pubids />
         </div>
     @endif
     @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['below', 'below-center']))

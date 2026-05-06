@@ -12,7 +12,7 @@ use APP\plugins\themes\eidos\EidosTheme;
 class Options
 {
     public const HEADER_DEFAULT = 'default';
-    public const HEADER_BOXED = 'defaultBoxed';
+    public const HEADER_BOXED = 'boxed';
     public const HEADER_LINE = 'line';
 
     public const HOMEPAGE_IMAGE_POSITION_ABOVE = 'above';

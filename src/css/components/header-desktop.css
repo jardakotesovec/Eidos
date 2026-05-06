@@ -1,5 +1,5 @@
 .header-desktop {
-  --inline-padding: 4rem;
+  --inline-padding: 2rem;
   display: none;
   position: relative;
 }
@@ -67,7 +67,7 @@
   line-height: 1.25;
 }
 
-.header-desktop-utility {
+.header-desktop-utility-menu {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -79,21 +79,6 @@
 
 .header-desktop-user-icon {
   --button-x-padding: 0.5rem;
-}
-
-.header-desktop-pubids {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.header-desktop-pubid {
-  font-size: 0.75rem;
-  font-weight: 300;
-}
-
-.header-desktop-pubid-name {
-  font-weight: 500;
 }
 
 /**
@@ -113,21 +98,8 @@
   }
 }
 
-.header-desktop-image-above-center,
-.header-desktop-image-below-center {
 
-  .header-desktop-above,
-  .header-desktop-below {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-
-.header-desktop-image-behind,
-.header-desktop-image-behind-right-top,
-.header-desktop-image-behind-right-center,
-.header-desktop-image-behind-right-bottom {
+.header-desktop-image-behind {
 
   .header-desktop-inner {
     display: grid;
@@ -138,56 +110,5 @@
   .header-desktop-behind,
   .header-desktop-inner-content {
     grid-area: 1 / 1;
-  }
-}
-
-.header-desktop-image-behind-right-top,
-.header-desktop-image-behind-right-center,
-.header-desktop-image-behind-right-bottom {
-
-  .header-desktop-inner {
-    align-items: center;
-  }
-
-  .header-desktop-behind {
-    justify-self: end;
-  }
-
-  .header-desktop-image {
-    max-height: 12rem;
-  }
-}
-
-.header-desktop-image-behind-right-top {
-
-  .header-desktop-behind {
-    align-self: start;
-  }
-}
-
-.header-desktop-image-behind-right-bottom {
-
-  .header-desktop-behind {
-    align-self: end;
-  }
-}
-
-.header-desktop-image-behind-pattern {
-
-  .header-desktop-inner {
-    position: relative;
-  }
-
-  .header-desktop-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-repeat: repeat-both;
-  }
-
-  .header-desktop-inner-content {
-    position: relative;
   }
 }
