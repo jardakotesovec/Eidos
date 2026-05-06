@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2rem var(--inline-padding);
+  padding: 1rem var(--inline-padding);
 }
 
 .header-desktop-context {
