@@ -31,23 +31,30 @@ class Layout extends Component
     }
 
     /**
+     * Get the name of the context or site, depending
+     * on what kind of page we're viewing.
+     */
+    public function contextName() : string
+    {
+        $context = Application::get()->getRequest()->getContext();
+        return $context
+            ? $context->getLocalizedName()
+            : Application::get()->getRequest()->getSite()->getLocalizedTitle();
+    }
+
+    /**
      * Get the <title> by combining the current page title
      * with the context or site name.
      */
     public function pageTitle() : string
     {
-        $context = Application::get()->getRequest()->getContext();
         $page = Application::get()->getRequest()->getRequestedPage();
 
         if ($page === 'index') {
             return $this->title;
         }
 
-        $contextTitle = $context
-            ? $context->getLocalizedName()
-            : Application::get()->getRequest()->getSite()->getLocalizedTitle();
-
-        return $this->title . __('common.titleSeparator') . $contextTitle;
+        return $this->title . __('common.titleSeparator') . $this->contextName();
     }
 
     /**
@@ -73,10 +80,23 @@ class Layout extends Component
     }
 
     /**
+     * Get a short `size` string indicating the length of a string
+     *
+     * @return string 'xs' | 'sm' | 'md' | 'lg'
+     */
+    public function getStringSize(string $str): string
+    {
+        $length = strlen($str);
+        return $length <= 20 ? 'xs' : ($length <= 40 ? 'sm' : ($length <= 80 ? 'md' : 'lg'));
+    }
+
+    /**
      * Add global template data
      */
     protected function addGlobalData(): void
     {
+        view()->share('contextName', $this->contextName());
+        view()->share('getStringSize', [self::class, 'getStringSize']);
         view()->share('locales', $this->getLocales());
     }
 

@@ -1,3 +1,112 @@
-<div class="hidden xl:block">
-    desktop menu
-</div>
+@php
+    $homepageImage = $currentContext->getLocalizedData('homepageImage');
+@endphp
+
+<header
+    class="
+        header-desktop
+        header-desktop-{{ $activeTheme->getOption('header') }}
+        header-desktop-image-{{ $activeTheme->getOption('homepageImagePosition') }}
+    "
+>
+    @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
+        <div class="header-desktop-above">
+            <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
+                alt="{{ $homepageImage['altText'] }}">
+        </div>
+    @endif
+    <div class="header-desktop-inner">
+        @if ($homepageImage && $activeTheme->getOption('homepageImagePosition') === 'behind')
+            <div class="header-desktop-behind">
+                @if ($activeTheme->getOption('homepageImagePosition') === 'behind-pattern')
+                    <div class="header-desktop-image"
+                        style="background-image: url('{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}');"></div>
+                @else
+                    <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
+                        alt="{{ $homepageImage['altText'] }}">
+                @endif
+            </div>
+        @endif
+        <div class="header-desktop-inner-content">
+            <div class="header-desktop-context">
+                <a href="{{ ViewHelper::url(['page' => 'index']) }}" class="tab-focus">
+                    @if ($displayPageHeaderLogo)
+                        <div class="sr-only">
+                            {{ $currentContext->getLocalizedName() }}
+                        </div>
+                        <img class="header-desktop-logo"
+                            src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}">
+                    @else
+                        <div class="header-desktop-name header-desktop-name-{{ $getStringSize($contextName) }}">
+                            {{ $currentContext->getLocalizedName() }}
+                        </div>
+                    @endif
+                </a>
+                @if (
+                    $displayPageHeaderLogo &&
+                        $activeTheme->getLocalizedOption('tagline') &&
+                        in_array($activeTheme->getOption('header'), ['default', 'defaultBoxed']))
+                    <div class="header-desktop-tagline">
+                        {{ $activeTheme->getLocalizedOption('tagline') }}
+                    </div>
+                @endif
+            </div>
+            @if ($activeTheme->getOption('header') === 'line')
+                <nav class="header-desktop-nav-main-line" id="skip-to-nav-desktop">
+                    @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
+                </nav>
+            @endif
+            <div class="header-desktop-utility" data-vue-root>
+                <a
+                    class="header-desktop-search"
+                    href="{{ ViewHelper::url(['page' => 'search']) }}"
+                >
+                    @include('components/icons/search')
+                    {{ __('common.search') }}
+                </a>
+                <popover-root class="dropdown">
+                    <popover-trigger
+                        aria-label={{ __('plugins.themes.eidos.account') }}
+                        class="dropdown-trigger tab-focus"
+                        id="skip-to-user-nav-desktop"
+                    >
+                        @include('components/icons/circle-user')
+                    </popover-trigger>
+                    <popover-portal>
+                        <popover-content
+                            class="dropdown-content"
+                            align="end"
+                            side="bottom"
+                            :side-offset="5"
+                        >
+                            <x-eidostheme::user-options
+                                skipToLanguageId="skip-to-language-desktop"
+                                skipToUserNavId="skip-to-user-nav-desktop"
+                            />
+                            <popover-close
+                                class="dropdown-close sr-only focus-visible:not-sr-only"
+                                aria-label="{{ __('common.close') }}"
+                            >
+                                @include('components/icons/close')
+                            </popover-close>
+                            <popover-arrow class="dropdown-arrow"></popover-arrow>
+                        </popover-content>
+                    </popover-portal>
+                </popover-root>
+            </div>
+        </div>
+    </div>
+    @if (in_array($activeTheme->getOption('header'), ['default']))
+        <div class="header-desktop-bottom-row">
+            <nav class="header-desktop-nav-main" id="skip-to-nav-desktop">
+                @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
+            </nav>
+        </div>
+    @endif
+    @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['below', 'below-center']))
+        <div class="header-desktop-below">
+            <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
+                alt="{{ $homepageImage['altText'] }}">
+        </div>
+    @endif
+</header>

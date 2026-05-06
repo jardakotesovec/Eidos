@@ -2,13 +2,24 @@
 namespace APP\plugins\themes\eidos;
 
 use APP\core\Application;
+use APP\plugins\themes\eidos\classes\Options;
 use APP\plugins\themes\eidos\classes\ViteLoader;
 use APP\template\TemplateManager;
 use PKP\plugins\ThemePlugin;
 
 class EidosTheme extends ThemePlugin {
 
+    protected Options $optionsHelper;
+
+    public function isActive()
+    {
+        if (defined('SESSION_DISABLE_INIT')) return true;
+        return parent::isActive();
+    }
+
     public function init() {
+        $this->optionsHelper = new Options($this);
+        $this->optionsHelper->addOptions();
         $this->requiresVueRuntime();
         $this->addViteAssets(['src/main.js']);
         $this->addMenuArea(['primary', 'user', 'homepage', 'policy']);

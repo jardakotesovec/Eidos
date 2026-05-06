@@ -1,6 +1,6 @@
 {{--
 
-Vertical Navigation Menu
+Navigation Menu
 
 This template displays a NavigationMenu in a vertical list.
 
@@ -20,14 +20,10 @@ This template displays a NavigationMenu in a vertical list.
                 @continue
             @endif
             <li class="menu-item {{ $liClass }}">
-                @if (!$item->navigationMenuItem->getIsChildVisible())
-                    <a class="menu-button" href="{{ $item->navigationMenuItem->getUrl() }}">
-                        {!! $item->navigationMenuItem->getLocalizedTitle() !!}
-                    </a>
-                @else
-                    <button class="menu-button">
-                        {!! $item->navigationMenuItem->getLocalizedTitle() !!}
-                    </button>
+                <a class="menu-button" href="{{ $item->navigationMenuItem->getUrl() }}">
+                    {!! $item->navigationMenuItem->getLocalizedTitle() !!}
+                </a>
+                @if ($item->navigationMenuItem->getIsChildVisible())
                     <div class="menu-submenu">
                         <x-eidostheme::menu :items="$item->children" />
                     </div>

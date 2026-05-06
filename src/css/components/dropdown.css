@@ -1,0 +1,37 @@
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-actions);
+}
+
+.dropdown-trigger:after {
+  display: none;
+}
+
+.dropdown-content {
+  --inner-padding: 1.5rem;
+  padding: var(--inner-padding);
+  background: var(--color-overlay-background);
+  color: var(--color-overlay-text);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--overlay-shadow);
+}
+
+.dropdown-arrow {
+  fill: var(--color-overlay-background);
+}
+
+.dropdown-close {
+  --size-close-button: calc(2 * var(--inner-padding));
+  @apply tab-focus;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--size-close-button);
+  height: var(--size-close-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,10 @@
+.header-desktop-default {
+
+  & .header-desktop-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: var(--inline-padding);
+    padding-right: var(--inline-padding);
+  }
+}
