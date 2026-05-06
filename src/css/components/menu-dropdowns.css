@@ -22,10 +22,9 @@
 .menu-dropdowns-content {
   position: absolute;
   top: 100%;
-  left: 100%;
+  left: 0;
   min-width: 16rem;
   width: auto;
-  transform: translate(-50%, 5px);
 }
 
 .menu-dropdowns-arrow {
@@ -33,8 +32,7 @@
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 0.75rem;
+  transform: translate(-50%, -5px);
   z-index: 100;
 
   & svg {
@@ -45,4 +43,12 @@
 
 .menu-dropdowns-button[aria-expanded="true"] .menu-dropdowns-arrow {
   display: block;
+}
+
+.menu-dropdowns-align-end {
+
+  & .menu-dropdowns-content {
+    left: auto;
+    right: 0;
+  }
 }
