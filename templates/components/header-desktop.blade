@@ -9,6 +9,7 @@
         header-desktop-image-{{ $activeTheme->getOption('homepageImagePosition') }}
     "
 >
+    @includeIf('components.header-desktop-institution')
     @if ($activeTheme->getOption('header') === 'default' && $homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
         <div class="header-desktop-above">
             <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
