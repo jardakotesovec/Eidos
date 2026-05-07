@@ -20,6 +20,9 @@ class Options
     public const HOMEPAGE_IMAGE_POSITION_BELOW = 'below';
     public const HOMEPAGE_IMAGE_POSITION_NONE = 'none';
 
+    public const SITE_WIDTH_FULL = 'full';
+    public const SITE_WIDTH_FIXED = 'fixed';
+
     /**
      * Primary locale of current context
      */
@@ -49,8 +52,9 @@ class Options
     public function addOptions(): void
     {
         $this->addHeaderOption();
-        $this->addTaglineOption();
         $this->addHomepageImageOption();
+        $this->addTaglineOption();
+        $this->addSiteWidthOption();
     }
 
     /**
@@ -120,6 +124,29 @@ class Options
             'label' => __('plugins.themes.eidos.option.tagline.label'),
             'description' => __('plugins.themes.eidos.option.tagline.description'),
             'isMultilingual' => true,
+        ]);
+    }
+
+    /**
+     * Add option to set the site width
+     */
+    protected function addSiteWidthOption(): void
+    {
+        $this->theme->addOption('siteWidth', 'FieldOptions', [
+            'type' => 'radio',
+            'label' => __('plugins.themes.eidos.option.siteWidth.label'),
+            'description' => __('plugins.themes.eidos.option.siteWidth.description'),
+            'options' => [
+                [
+                    'value' => self::SITE_WIDTH_FULL,
+                    'label' => __('plugins.themes.eidos.option.siteWidth.full'),
+                ],
+                [
+                    'value' => self::SITE_WIDTH_FIXED,
+                    'label' => __('plugins.themes.eidos.option.siteWidth.fixed'),
+                ],
+            ],
+            'default' => self::SITE_WIDTH_FULL,
         ]);
     }
 }

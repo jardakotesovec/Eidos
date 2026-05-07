@@ -166,7 +166,7 @@
   }
 }
 
-@media (min-width: 48rem) {
+@media (min-width: 768px) {
 
   .header-mobile-dropdown-inner {
     display: grid;
@@ -187,7 +187,7 @@
   }
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 1200px) {
 
   .header-mobile {
     display: none;

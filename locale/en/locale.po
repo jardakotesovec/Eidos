@@ -54,3 +54,15 @@ msgstr "Below Header"
 
 msgid "plugins.themes.eidos.option.homepageImagePosition.none"
 msgstr "Don't show the homepage image in the header"
+
+msgid "plugins.themes.eidos.option.siteWidth.label"
+msgstr "Site Width"
+
+msgid "plugins.themes.eidos.option.siteWidth.description"
+msgstr "Choose how your site should appear when viewed on on very large screens. If you use the Homepage Image in your header, you may want to choose Fixed Width to prevent the image from becoming too large."
+
+msgid "plugins.themes.eidos.option.siteWidth.full"
+msgstr "Full Width - The header and footer will extend the full width of the screen."
+
+msgid "plugins.themes.eidos.option.siteWidth.fixed"
+msgstr "Fixed Width - On very large screens, the header and footer will not be wider than then page content."

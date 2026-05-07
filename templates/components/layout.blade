@@ -26,7 +26,10 @@ This is the layout used for most pages on the site.
 <body
     {{
         $attributes->merge([
-            'class' => $bodyClasses,
+            'class' => join(' ', [
+                $bodyClasses,
+                'site-width-' . $activeTheme->getOption('siteWidth'),
+            ]),
             'dir' => $currentLocaleLangDir ?? 'ltr',
         ])
     }}

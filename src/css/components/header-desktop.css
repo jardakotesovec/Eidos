@@ -4,9 +4,9 @@
   position: relative;
 }
 
-@media (min-width: 64rem) {
+@media (min-width: 1200px) {
   .header-desktop {
-    display: contents;
+    display: block;
   }
 }
 
@@ -132,6 +132,12 @@
 
 @media (min-width: 1536px) {
 
+  .site-width-fixed .header-desktop {
+    max-width: 1536px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .header-desktop-above,
   .header-desktop-image-behind .header-desktop-behind,
   .header-desktop-image-behind .header-desktop-inner-content,
@@ -140,7 +146,18 @@
   }
 }
 
+@media (min-width: 1600px) {
+
+  .site-width-fixed .header-desktop {
+    margin-top: 2rem;
+  }
+}
+
 @media (min-width: 1920px) {
+
+  .site-width-fixed .header-desktop {
+    max-width: 1792px;
+  }
 
   .header-desktop-above,
   .header-desktop-image-behind .header-desktop-behind,
@@ -152,10 +169,10 @@
 
 @media (min-width: 2560px) {
 
-  .header-desktop-above,
-  .header-desktop-image-behind .header-desktop-behind,
-  .header-desktop-image-behind .header-desktop-inner-content,
-  .header-desktop-image-below .header-desktop-below {
+  .site-width-full .header-desktop-above,
+  .site-width-full .header-desktop-image-behind .header-desktop-behind,
+  .site-width-full .header-desktop-image-behind .header-desktop-inner-content,
+  .site-width-full .header-desktop-image-below .header-desktop-below {
     max-height: var(--header-image-max-height-4xl);
   }
 }
