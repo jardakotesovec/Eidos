@@ -66,7 +66,7 @@
   line-height: 1.25;
 }
 
-.header-desktop-utility-menu {
+.header-utility-menu {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -74,10 +74,6 @@
   & .menu-dropdowns-content {
     min-width: 20rem;
   }
-}
-
-.header-desktop-user-icon {
-  --button-x-padding: 0.5rem;
 }
 
 /**
@@ -154,6 +150,11 @@
 }
 
 @media (min-width: 1920px) {
+
+  .header-desktop-logo {
+    max-width: 20rem;
+    max-height: 8rem;
+  }
 
   .site-width-fixed .header-desktop {
     max-width: 1792px;

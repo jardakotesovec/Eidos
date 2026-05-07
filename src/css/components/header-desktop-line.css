@@ -16,7 +16,7 @@
     margin-inline-end: auto;
   }
 
-  & .header-desktop-utility-menu {
+  & .header-utility-menu {
     margin-inline-start: auto;
   }
 
@@ -59,7 +59,7 @@
    */
   .header-desktop-line {
     display: block;
-    min-height: 7rem;
+    min-height: calc(var(--header-height) + 2rem);
 
     & .header-desktop-inner {
       position: fixed;
@@ -69,5 +69,12 @@
       transform: translateX(-50%);
       border-radius: var(--radius);
     }
+  }
+}
+
+@media (min-width: 1920px) {
+
+  .header-desktop-line {
+    --header-height: 6rem;
   }
 }

@@ -52,3 +52,15 @@
     right: 0;
   }
 }
+
+@media (min-width: 1920px) {
+  .menu-dropdowns-list {
+    --button-x-padding: 1.25rem;
+  }
+
+  .menu-dropdowns-button {
+    font-size: 1.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+}
