@@ -1,9 +1,9 @@
 .header-desktop-boxed {
 
-  & .header-desktop-inner {
+  & .header-desktop-inner-content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    height: 100%;
   }
 
   & .header-desktop-utility-menu {
@@ -11,20 +11,26 @@
     padding-bottom: 0.25rem;
   }
 
-  & .header-desktop-row:has(.header-desktop-context) {
+  & .header-desktop-row:last-child {
+    margin-top: auto;
     align-items: flex-end;
     justify-content: flex-start;
     gap: 2rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-bottom: 1rem;
   }
 
   & .header-desktop-context {
     padding: 0;
   }
+
+  & .header-desktop-nav-main {
+    transform: translateY(0.5rem);
+  }
 }
 
 .header-desktop-boxed-line {
   width: 100%;
   border-bottom: 1px solid var(--color-header-text);
+  margin-bottom: 1rem;
 }

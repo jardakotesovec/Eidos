@@ -9,7 +9,7 @@
         header-desktop-image-{{ $activeTheme->getOption('homepageImagePosition') }}
     "
 >
-    @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
+    @if ($activeTheme->getOption('header') === 'default' && $homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
         <div class="header-desktop-above">
             <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
                 alt="{{ $homepageImage['altText'] }}">
@@ -18,13 +18,8 @@
     <div class="header-desktop-inner">
         @if ($homepageImage && $activeTheme->getOption('homepageImagePosition') === 'behind')
             <div class="header-desktop-behind">
-                @if ($activeTheme->getOption('homepageImagePosition') === 'behind-pattern')
-                    <div class="header-desktop-image"
-                        style="background-image: url('{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}');"></div>
-                @else
-                    <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
-                        alt="{{ $homepageImage['altText'] }}">
-                @endif
+                <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
+                    alt="{{ $homepageImage['altText'] }}">
             </div>
         @endif
         <div class="header-desktop-inner-content">
@@ -33,9 +28,16 @@
                     <x-eidostheme::header-desktop-pubids />
                     <x-eidostheme::header-utility-menu />
                 </div>
-                <div class="header-desktop-row">
-                    <div class="header-desktop-boxed-line"></div>
-                </div>
+                @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
+                    <div class="header-desktop-above">
+                        <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
+                            alt="{{ $homepageImage['altText'] }}">
+                    </div>
+                @else
+                    <div class="header-desktop-row">
+                        <div class="header-desktop-boxed-line"></div>
+                    </div>
+                @endif
             @endif
             <div class="header-desktop-row">
                 <div class="header-desktop-context">
@@ -62,7 +64,7 @@
                     @endif
                 </div>
                 @if (in_array($activeTheme->getOption('header'), ['boxed', 'line']))
-                    <nav class="header-desktop-nav-main-line" id="skip-to-nav-desktop">
+                    <nav class="header-desktop-nav-main" id="skip-to-nav-desktop">
                         @loadMenu(['name' => 'primary', 'id' => 'nav-desktop-primary', 'path' => 'components/menu-dropdowns'])
                     </nav>
                 @endif
@@ -80,7 +82,7 @@
             <x-eidostheme::header-desktop-pubids />
         </div>
     @endif
-    @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['below', 'below-center']))
+    @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['below']))
         <div class="header-desktop-below">
             <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
                 alt="{{ $homepageImage['altText'] }}">

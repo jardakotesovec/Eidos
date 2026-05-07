@@ -1,3 +1,6 @@
 .header-desktop-default {
 
+  & .header-desktop-inner-content .header-desktop-row {
+    min-height: 6rem;
+  }
 }

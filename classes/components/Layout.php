@@ -89,7 +89,7 @@ class Layout extends Component
     public function getStringSize(string $str): string
     {
         $length = strlen($str);
-        return $length <= 20 ? 'xs' : ($length <= 40 ? 'sm' : ($length <= 80 ? 'md' : 'lg'));
+        return $length <= 40 ? 'xs' : ($length <= 80 ? 'sm' : ($length <= 100 ? 'md' : 'lg'));
     }
 
     /**

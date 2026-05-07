@@ -18,6 +18,7 @@ class Options
     public const HOMEPAGE_IMAGE_POSITION_ABOVE = 'above';
     public const HOMEPAGE_IMAGE_POSITION_BEHIND = 'behind';
     public const HOMEPAGE_IMAGE_POSITION_BELOW = 'below';
+    public const HOMEPAGE_IMAGE_POSITION_NONE = 'none';
 
     /**
      * Primary locale of current context
@@ -80,18 +81,6 @@ class Options
     }
 
     /**
-     * Add option for the tagline to display beside the logo
-     */
-    protected function addTaglineOption(): void
-    {
-        $this->theme->addOption('tagline', 'FieldText', [
-            'label' => __('plugins.themes.eidos.option.tagline.label'),
-            'description' => __('plugins.themes.eidos.option.tagline.description'),
-            'isMultilingual' => true,
-        ]);
-    }
-
-    /**
      * Add option for where to display the homepage image
      */
     protected function addHomepageImageOption(): void
@@ -113,8 +102,24 @@ class Options
                     'value' => self::HOMEPAGE_IMAGE_POSITION_BELOW,
                     'label' => __('plugins.themes.eidos.option.homepageImagePosition.below'),
                 ],
+                [
+                    'value' => self::HOMEPAGE_IMAGE_POSITION_NONE,
+                    'label' => __('plugins.themes.eidos.option.homepageImagePosition.none'),
+                ],
             ],
             'default' => self::HOMEPAGE_IMAGE_POSITION_ABOVE,
+        ]);
+    }
+
+    /**
+     * Add option for the tagline to display beside the logo
+     */
+    protected function addTaglineOption(): void
+    {
+        $this->theme->addOption('tagline', 'FieldText', [
+            'label' => __('plugins.themes.eidos.option.tagline.label'),
+            'description' => __('plugins.themes.eidos.option.tagline.description'),
+            'isMultilingual' => true,
         ]);
     }
 }

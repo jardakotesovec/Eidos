@@ -1,16 +1,31 @@
 .header-desktop-line {
+  --header-height: 5rem;
 
   & .header-desktop-row {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 2rem;
   }
 
   & .header-desktop-logo {
-    max-height: 3rem;
+    max-height: calc(var(--header-height) - 2rem);
+  }
+
+  & .header-desktop-nav-main {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
   }
 
   & .header-desktop-utility-menu {
     margin-inline-start: auto;
+  }
+
+  & .header-desktop-behind {
+    max-height: var(--header-height);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: var(--radius);
   }
 }
 

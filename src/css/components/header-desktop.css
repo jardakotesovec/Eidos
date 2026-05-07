@@ -42,22 +42,21 @@
 
 .header-desktop-name {
   font-family: var(--font-titles);
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   line-height: 1.25;
-  text-wrap: balance;
 }
 
 .header-desktop-name-xs {
-  font-size: 3rem;
+  font-size: 1.5rem;
 }
 
 .header-desktop-name-sm {
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
 
 .header-desktop-name-md {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
 }
 
 .header-desktop-tagline {
@@ -86,18 +85,17 @@
  */
 .header-desktop-above {
   background: var(--color-header-background);
+  max-height: var(--header-image-max-height);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
-.header-desktop-image-above,
-.header-desktop-image-below,
-.header-desktop-image-behind {
-
-  .header-desktop-image {
-    width: 100%;
-    height: auto;
-  }
+.header-desktop-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-
 
 .header-desktop-image-behind {
 
@@ -110,5 +108,54 @@
   .header-desktop-behind,
   .header-desktop-inner-content {
     grid-area: 1 / 1;
+    max-height: var(--header-image-max-height);
+  }
+
+  .header-desktop-behind {
+    overflow: hidden;
+  }
+}
+
+.header-desktop-image-below {
+
+  & .header-desktop-below {
+    display: flex;
+    align-items: center;
+    max-height: var(--header-image-max-height);
+    overflow: hidden;
+  }
+
+  & .header-desktop-image {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1536px) {
+
+  .header-desktop-above,
+  .header-desktop-image-behind .header-desktop-behind,
+  .header-desktop-image-behind .header-desktop-inner-content,
+  .header-desktop-image-below .header-desktop-below {
+    max-height: var(--header-image-max-height-2xl);
+  }
+}
+
+@media (min-width: 1920px) {
+
+  .header-desktop-above,
+  .header-desktop-image-behind .header-desktop-behind,
+  .header-desktop-image-behind .header-desktop-inner-content,
+  .header-desktop-image-below .header-desktop-below {
+    max-height: var(--header-image-max-height-3xl);
+  }
+}
+
+@media (min-width: 2560px) {
+
+  .header-desktop-above,
+  .header-desktop-image-behind .header-desktop-behind,
+  .header-desktop-image-behind .header-desktop-inner-content,
+  .header-desktop-image-below .header-desktop-below {
+    max-height: var(--header-image-max-height-4xl);
   }
 }

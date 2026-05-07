@@ -51,3 +51,6 @@ msgstr "Behind Header"
 
 msgid "plugins.themes.eidos.option.homepageImagePosition.below"
 msgstr "Below Header"
+
+msgid "plugins.themes.eidos.option.homepageImagePosition.none"
+msgstr "Don't show the homepage image in the header"

@@ -34,4 +34,9 @@
   --search-radius: var(--radius);
   --input-radius: var(--radius);
   --input-border-width: var(--border-width);
+
+  --header-image-max-height: 16rem;
+  --header-image-max-height-2xl: 20rem;
+  --header-image-max-height-3xl: 24rem;
+  --header-image-max-height-4xl: 28rem;
 }
