@@ -98,7 +98,7 @@ class Layout extends Component
     protected function addGlobalData(): void
     {
         view()->share('contextName', $this->contextName());
-        view()->share('getStringSize', [self::class, 'getStringSize']);
+        view()->share('getStringSize', [$this, 'getStringSize']);
         view()->share('locales', $this->getLocales());
         view()->share('publicationIds', $this->getPublicationIds());
     }
