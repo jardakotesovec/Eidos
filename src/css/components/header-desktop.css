@@ -140,6 +140,10 @@
   .header-desktop-image-below .header-desktop-below {
     max-height: var(--header-image-max-height-2xl);
   }
+
+  .header-desktop-tagline {
+    font-size: 1.125rem;
+  }
 }
 
 @media (min-width: 1600px) {

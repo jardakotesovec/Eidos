@@ -3,4 +3,8 @@
   & .header-desktop-inner-content .header-desktop-row {
     min-height: 6rem;
   }
+
+  & .header-desktop-tagline {
+    font-size: 1.125rem;
+  }
 }
