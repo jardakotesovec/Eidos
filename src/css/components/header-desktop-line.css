@@ -27,6 +27,10 @@
     overflow: hidden;
     border-radius: var(--radius);
   }
+
+  & .menu-dropdowns-button {
+    max-height: 6rem;
+  }
 }
 
 @media (min-width: 1200px) {
