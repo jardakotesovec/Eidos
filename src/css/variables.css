@@ -18,7 +18,7 @@
   --color-overlay-background: var(--color-background);
   --color-overlay-text: var(--color-text);
   --color-footer-background: var(--color-primary);
-  --color-footer-text: var(--color-secondary);
+  --color-footer-text: var(--color-text-on-primary);
 
   --font-base: "Noto Sans", "Noto Sans Arabic", system-ui, -apple-system, BlinkMacSystemFont, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-titles: var(--font-base);

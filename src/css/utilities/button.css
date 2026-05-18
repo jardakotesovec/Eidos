@@ -1,0 +1,56 @@
+/**
+ * Styles for button elements
+ */
+@utility button {
+  @apply tab-focus;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1.25em;
+  min-height: 3rem;
+  border: var(--border-width) solid var(--color-button-text);
+  border-radius: var(--button-radius);
+  color: var(--color-button-text);
+  background: var(--color-button-background);
+  font-family: var(--font-actions);
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    outline: var(--border-width) solid var(--color-button-text);
+  }
+
+  & svg {
+    flex: 0 0 1.5em;
+    width: 1.5em;
+    height: auto;
+  }
+}
+
+@utility button-text {
+  border-color: var(--color-page-text);
+  color: var(--color-page-text);
+  background: var(--color-page-background);
+
+  &:hover {
+    outline: var(--border-width) solid var(--color-page-text);
+  }
+}
+
+@utility button-highlight {
+  background: var(--color-button-text);
+  color: var(--color-button-background);
+
+  &:focus-visible {
+    outline-color: var(--color-button-text);
+  }
+}
+
+@utility button-truncate-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

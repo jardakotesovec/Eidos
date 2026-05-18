@@ -16,6 +16,12 @@ msgstr "Login or Register"
 msgid "plugins.themes.eidos.account"
 msgstr "Account"
 
+msgid "plugins.themes.eidos.privacyPolicy"
+msgstr "Privacy Policy"
+
+msgid "plugins.themes.eidos.usesOjs"
+msgstr "Hosted using <a href=\"{$urlOJS}\">Open Journal Systems</a> by <a href=\"{$urlPKP}\">Public Knowledge Project</a>."
+
 msgid "plugins.themes.eidos.option.header.label"
 msgstr "Header"
 

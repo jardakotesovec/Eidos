@@ -4,10 +4,13 @@
  */
 @import './css/variables.css';
 @import './css/preflight.css';
+@import './css/utilities/button.css';
 @import './css/utilities/input.css';
 @import './css/utilities/link.css';
 @import './css/utilities/tab-focus.css';
 @import './css/components/dropdown.css';
+@import './css/components/footer.css';
+@import './css/components/footer-sidebar.css';
 @import './css/components/header-mobile.css';
 @import './css/components/header-desktop.css';
 @import './css/components/header-desktop-default.css';
