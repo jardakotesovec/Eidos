@@ -58,3 +58,11 @@
     gap: 2rem;
   }
 }
+
+[dir="rtl"] {
+
+  & .user-options-languages,
+  & .user-options-logged-in-as {
+    flex-direction: row-reverse;
+  }
+}
