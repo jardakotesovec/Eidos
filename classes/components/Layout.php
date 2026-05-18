@@ -2,6 +2,7 @@
 namespace APP\plugins\themes\eidos\classes\components;
 
 use APP\core\Application;
+use APP\template\TemplateManager;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\View as ViewFacade;
 use PKP\context\Context;
 use PKP\facades\Locale;
 use PKP\i18n\LocaleMetadata;
+use PKP\plugins\ThemePlugin;
 
 class Layout extends Component
 {
@@ -101,6 +103,7 @@ class Layout extends Component
         view()->share('getStringSize', [$this, 'getStringSize']);
         view()->share('locales', $this->getLocales());
         view()->share('publicationIds', $this->getPublicationIds());
+        view()->share('eidosUrl', $this->getEidosUrl());
     }
 
     /**
@@ -128,7 +131,7 @@ class Layout extends Component
      *
      * @return Collection
      */
-    protected function getPublicationIds() : Collection
+    protected function getPublicationIds(): Collection
     {
         $context = Application::get()->getRequest()->getContext();
 
@@ -156,5 +159,17 @@ class Layout extends Component
         }
 
         return $ids;
+    }
+
+    /**
+     * Get the URL to the root directory of the Eidos theme,
+     * ignoring any active child themes
+     */
+    protected function getEidosUrl(): string
+    {
+        $templateMgr = TemplateManager::getManager(Application::get()->getRequest());
+        /** @var ThemePlugin $activeTheme */
+        $activeTheme = $templateMgr->getTemplateVars('activeTheme');
+        return $activeTheme->getRootTheme()->getPluginUrl();
     }
 }

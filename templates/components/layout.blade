@@ -18,6 +18,7 @@ This is the layout used for most pages on the site.
     @endif
     @loadHeader(['context' => 'frontend'])
     @loadStylesheet(['context' => 'frontend'])
+    <x-eidostheme::fonts />
     @if ($head && !$head->isEmpty())
         {{ $head }}
     @endif
