@@ -53,6 +53,20 @@
   }
 }
 
+[dir="rtl"] .menu-dropdowns-list {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .menu-dropdowns-content {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .menu-dropdowns-align-end .menu-dropdowns-content {
+  left: 0;
+  right: auto;
+}
+
 @media (min-width: 1920px) {
   .menu-dropdowns-list {
     --button-x-padding: 1.25rem;

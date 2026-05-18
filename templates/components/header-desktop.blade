@@ -45,13 +45,13 @@
                     <a href="{{ ViewHelper::url(['page' => 'index']) }}" class="tab-focus">
                         @if ($displayPageHeaderLogo)
                             <div class="sr-only">
-                                {{ $currentContext->getLocalizedName() }}
+                                {{ $contextName }}
                             </div>
                             <img class="header-desktop-logo"
                                 src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}">
                         @else
                             <div class="header-desktop-name header-desktop-name-{{ $getStringSize($contextName) }}">
-                                {{ $currentContext->getLocalizedName() }}
+                                {{ $contextName }}
                             </div>
                         @endif
                     </a>

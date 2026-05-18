@@ -117,6 +117,10 @@
   }
 }
 
+[dir="rtl"] .header-mobile-dropdown {
+  transform-origin: top left;
+}
+
 .header-mobile-dropdown-inner {
   display: flex;
   flex-direction: column;
