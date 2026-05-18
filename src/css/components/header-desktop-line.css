@@ -7,6 +7,10 @@
     gap: 2rem;
   }
 
+  & .header-desktop-context {
+    max-width: none;
+  }
+
   & .header-desktop-logo {
     max-height: calc(var(--header-height) - 2rem);
   }
