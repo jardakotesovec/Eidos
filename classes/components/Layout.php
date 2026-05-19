@@ -2,6 +2,7 @@
 namespace APP\plugins\themes\eidos\classes\components;
 
 use APP\core\Application;
+use APP\plugins\themes\eidos\EidosTheme;
 use APP\template\TemplateManager;
 use Closure;
 use Illuminate\View\Component;
@@ -103,7 +104,8 @@ class Layout extends Component
         view()->share('getStringSize', [$this, 'getStringSize']);
         view()->share('locales', $this->getLocales());
         view()->share('publicationIds', $this->getPublicationIds());
-        view()->share('eidosUrl', $this->getEidosUrl());
+        view()->share('eidosUrl', $this->getEidosTheme()->getPluginUrl());
+        view()->share('usesCustomFonts', $this->getEidosTheme()->optionsHelper->usesCustomFonts());
     }
 
     /**
@@ -162,14 +164,17 @@ class Layout extends Component
     }
 
     /**
-     * Get the URL to the root directory of the Eidos theme,
-     * ignoring any active child themes
+     * Get the root parent theme
+     *
+     * This is always Eidos, whether or not a child theme has been
+     * activated.
      */
-    protected function getEidosUrl(): string
+    protected function getEidosTheme(): EidosTheme
     {
         $templateMgr = TemplateManager::getManager(Application::get()->getRequest());
         /** @var ThemePlugin $activeTheme */
         $activeTheme = $templateMgr->getTemplateVars('activeTheme');
-        return $activeTheme->getRootTheme()->getPluginUrl();
+        error_log(get_class($activeTheme->getRootTheme()));
+        return $activeTheme->getRootTheme();
     }
 }

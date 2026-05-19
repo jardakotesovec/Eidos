@@ -2,7 +2,54 @@
     title="{{ $currentContext->getLocalizedName() }}"
     description="{{ $currentContext->getLocalizedData('description') }}"
 >
-    <div class="page-container">
-        <h1>Hello</h1>
-    </div>
+    <article class="page-container">
+
+
+        {{-- Notices when viewing a preview or an old version --}}
+        @if ($publication->getData('status') !== PKP\publication\PKPPublication::STATUS_PUBLISHED)
+            <x-notice>
+                <div>
+                    {!!
+                        __(
+                            'submission.viewingPreview',
+                            [
+                                'url' => ViewHelper::url([
+                                    'page' => 'dashboard',
+                                    'op' => 'editorial',
+                                    'workflowSubmissionId' => $article->getId()
+                                ])
+                            ]
+                        )
+                    !!}
+                </div>
+            </x-notice>
+        @elseif ($currentPublication->getId() !== $publication->getId())
+            <x-notice>
+                <div>
+                    {!!
+                        __(
+                            'submission.outdatedVersion',
+                            [
+                                'datePublished' => ViewHelper::dateFormatShort($publication->getData('datePublished')),
+                                'urlRecentVersion' => ViewHelper::url([
+                                    'page' => 'article',
+                                    'op' => 'view',
+                                    'path' => $article->getBestId()
+                                ])
+                            ]
+                        )
+                    !!}
+                </div>
+            </x-notice>
+        @endif
+
+        <x-article-header />
+
+        <div class="article-main">
+            <div>highlighted metadata</div>
+            <div>sidebar</div>
+            <div>tabs</div>
+        </div>
+
+    </article>
 </x-eidostheme::layout>

@@ -5,11 +5,13 @@ use APP\core\Application;
 use APP\plugins\themes\eidos\classes\Options;
 use APP\plugins\themes\eidos\classes\ViteLoader;
 use APP\template\TemplateManager;
+use PKP\db\DAORegistry;
+use PKP\plugins\PluginSettingsDAO;
 use PKP\plugins\ThemePlugin;
 
 class EidosTheme extends ThemePlugin {
 
-    protected Options $optionsHelper;
+    public Options $optionsHelper;
 
     public function isActive()
     {
@@ -18,8 +20,10 @@ class EidosTheme extends ThemePlugin {
     }
 
     public function init() {
-        $this->optionsHelper = new Options($this);
+        $enabledFonts = $this->getEnabledFonts();
+        $this->optionsHelper = new Options($this, $enabledFonts);
         $this->optionsHelper->addOptions();
+        $this->addStyle('variables', $this->optionsHelper->getCssVariablesString(), ['inline' => true, 'contexts' => ['frontend', 'htmlGalley']]);
         $this->requiresVueRuntime();
         $this->addViteAssets(['src/main.js']);
         $this->addMenuArea(['primary', 'user', 'homepage', 'policy']);
@@ -65,5 +69,27 @@ class EidosTheme extends ThemePlugin {
         $baseUrl = rtrim($request->getBaseUrl(), '/');
         $pluginPath = rtrim($this->getPluginPath(), '/');
         return "{$baseUrl}/{$pluginPath}";
+    }
+
+    /**
+     * Get enabled fonts from the Google Fonts plugin
+     *
+     * Font options rely upon the Google Fonts plugin, but the
+     * theme is initialized before other generic plugins. For this
+     * reason, we go directly to the database to get the Google
+     * Fonts plugin's settings.
+     */
+    protected function getEnabledFonts(?int $contextId = null): array
+    {
+        if (is_null($contextId)) {
+            $contextId = Application::get()->getRequest()->getContext()?->getId() ?? Application::SITE_CONTEXT_ID;
+        }
+        /** @var PluginSettingsDAO $pluginSettingsDao */
+        $pluginSettingsDao = DAORegistry::getDAO('PluginSettingsDAO');
+        $enabledFonts = $pluginSettingsDao->getSetting($contextId, 'googlefontsplugin', 'fonts');
+        if (is_array($enabledFonts)) {
+            return $enabledFonts;
+        }
+        return [];
     }
 }

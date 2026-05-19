@@ -72,3 +72,21 @@ msgstr "Full Width - The header and footer will extend the full width of the scr
 
 msgid "plugins.themes.eidos.option.siteWidth.fixed"
 msgstr "Fixed Width - On very large screens, the header and footer will not be wider than then page content."
+
+msgid "plugins.themes.eidos.option.font.label"
+msgstr "Base Font"
+
+msgid "plugins.themes.eidos.option.font.description"
+msgstr "Select the font to use for the main body text, such as paragraphs and long blocks of text."
+
+msgid "plugins.themes.eidos.option.titlesFont.label"
+msgstr "Headings and Titles Font"
+
+msgid "plugins.themes.eidos.option.titlesFont.description"
+msgstr "Select the font to use for titles, headings and other large text."
+
+msgid "plugins.themes.eidos.option.actionsFont.label"
+msgstr "Buttons, Menus and Forms Font"
+
+msgid "plugins.themes.eidos.option.actionsFont.description"
+msgstr "Select the font to use for interactive elements, such as buttons, navigation menus, and forms."

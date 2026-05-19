@@ -1,0 +1,36 @@
+<header class="article-header">
+    <h1 class="article-title">
+        {!! ViewHelper::sanitizeHtml(
+            $publication->getLocalizedFullTitle()
+        ) !!}
+    </h1>
+    @if ($publication->getData('authors'))
+        <h2 class="sr-only">
+            {{ __('article.authors') }}
+        </h2>
+        <ul class="article-authors">
+            @php
+                $count = count($publication->getData('authors'));
+            @endphp
+            @foreach ($publication->getData('authors') as $author)
+                <li class="article-author">
+                    {{-- preserve this formatting so that there isn't an extra space before the comma --}}
+                    {{
+                        $author->getFullName()
+                    }}@if ($author->getData('orcid'))
+                        <a href="{{ $author->getData('orcid') }}" target="_blank">
+                            @if ($author->hasVerifiedOrcid())
+                                {{ $orcidIcon }}
+                            @else
+                                {{ $orcidUnauthenticatedIcon}}
+                            @endif
+                        </a>
+                    @endif{{
+                    ""}}@if ($loop->iteration < $count){{
+                        __('common.commaListSeparator')
+                    }}@endif
+                </li>
+            @endforeach
+        </ul>
+    @endif
+</header>

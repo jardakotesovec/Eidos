@@ -74,6 +74,41 @@ A `head` [slot](https://laravel.com/docs/11.x/blade#slots) exists to pass custom
 </x-eidostheme::layout>
 ```
 
+### Notice
+
+Use the notice component to add a message, warning, or error.
+
+```html
+<x-notice>
+    <div>This is a preview and has not been published.</div>
+</x-notice>
+```
+
+Add an optional title and actions.
+
+```html
+<x-notice>
+    <x-slot:title>
+        Preview
+    </x-slot:title>
+    <div>This is a preview and has not been published.</div>
+    <x-slot:actions>
+        <a class="button" href="...">
+            View Submission
+        </a>
+        <a class="button" href="...">
+            Go to homepage
+        </a>
+    </x-slot>
+</x-notice>
+```
+
+### Body Classes
+
+Classes are assigned to the `<body>` element which can be used to adapt styles based on theme options. These include:
+
+- `site-width-full | site-width-fixed` to adapt the header based on the Site Width option.
+- `font-<name>`, `font-titles-<name>`, and `font-actions-<name>` to apply custom styles for fonts. When no custom font options are enabled, the `<name>` will be `default`. Use this to style the default [Noto Sans](https://fonts.google.com/noto/specimen/Noto+Sans) font, which supports variable weights and widths.
 
 ## Credit
 

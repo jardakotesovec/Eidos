@@ -5,6 +5,7 @@ namespace APP\plugins\themes\eidos\classes;
 use APP\core\Application;
 use APP\journal\Journal;
 use APP\plugins\themes\eidos\EidosTheme;
+use Illuminate\Support\Collection;
 
 /**
  * Helper class to add theme options
@@ -19,6 +20,8 @@ class Options
     public const HOMEPAGE_IMAGE_POSITION_BEHIND = 'behind';
     public const HOMEPAGE_IMAGE_POSITION_BELOW = 'below';
     public const HOMEPAGE_IMAGE_POSITION_NONE = 'none';
+
+    public const FONT_DEFAULT = 'noto-sans';
 
     public const SITE_WIDTH_FULL = 'full';
     public const SITE_WIDTH_FIXED = 'fixed';
@@ -38,6 +41,15 @@ class Options
          * Instance of the theme
          */
         protected EidosTheme $theme,
+
+        /**
+         * List of enabled fonts
+         *
+         * From the Google Fonts plugin. Empty array
+         * if the plugin is disabled or no fonts have
+         * been added through the plugin.
+         */
+        protected array $enabledFonts
     ) {
         $request = Application::get()->getRequest();
         $this->context = $request->getContext();
@@ -55,6 +67,7 @@ class Options
         $this->addHomepageImageOption();
         $this->addTaglineOption();
         $this->addSiteWidthOption();
+        $this->addFontOptions();
     }
 
     /**
@@ -82,6 +95,49 @@ class Options
             ],
             'default' => self::HEADER_DEFAULT,
         ]);
+    }
+
+    /**
+     * Get CSS variables based on the theme options
+     */
+    public function getCssVariables(): Collection
+    {
+        $variables = new Collection([]);
+
+        if ($this->usesCustomFonts()) {
+            foreach ($this->enabledFonts as $font) {
+                if ($font['id'] === $this->theme->getOption('font')) {
+                    $variables['--font-base'] = "'{$font['family']}', {$this->getFontFallback($font['category'])}";
+                }
+                if ($font['id'] === $this->theme->getOption('titlesFont')) {
+                    $variables['--font-titles'] = "'{$font['family']}', {$this->getFontFallback($font['category'])}";
+                }
+                if ($font['id'] === $this->theme->getOption('actionsFont')) {
+                    $variables['--font-actions'] = "'{$font['family']}', {$this->getFontFallback($font['category'])}";
+                }
+            }
+        }
+
+        return $variables;
+    }
+
+    /**
+     * Get a CSS string that assigns all variables to
+     * the passed CSS selector
+     *
+     * For example, if $selector='body' it will return:
+     *
+     * body {
+     *    // variables
+     * }
+     */
+    public function getCssVariablesString(string $selector = 'body'): string
+    {
+        $string = $this->getCssVariables()
+            ->map(fn($val, $var) => "{$var}: {$val};")
+            ->join('');
+
+        return "{$selector} {{$string}}";
     }
 
     /**
@@ -148,5 +204,78 @@ class Options
             ],
             'default' => self::SITE_WIDTH_FULL,
         ]);
+    }
+
+    /**
+     * Add options to set typography
+     */
+    protected function addFontOptions(): void
+    {
+        if (!count($this->enabledFonts)) {
+            return;
+        }
+
+        $options = [];
+        foreach ($this->enabledFonts as $font) {
+            $options[] = [
+                'value' => $font['id'],
+                'label' => $font['family'],
+            ];
+        }
+
+        $this->theme->addOption('font', 'FieldSelect', [
+            'label' => __('plugins.themes.eidos.option.font.label'),
+            'description' => __('plugins.themes.eidos.option.font.description'),
+            'options' => $options,
+            'default' => self::FONT_DEFAULT,
+        ]);
+
+        $this->theme->addOption('titlesFont', 'FieldSelect', [
+            'label' => __('plugins.themes.eidos.option.titlesFont.label'),
+            'description' => __('plugins.themes.eidos.option.titlesFont.description'),
+            'options' => $options,
+            'default' => self::FONT_DEFAULT,
+        ]);
+
+        $this->theme->addOption('actionsFont', 'FieldSelect', [
+            'label' => __('plugins.themes.eidos.option.actionsFont.label'),
+            'description' => __('plugins.themes.eidos.option.actionsFont.description'),
+            'options' => $options,
+            'default' => self::FONT_DEFAULT,
+        ]);
+    }
+
+    /**
+     * Get the fallback font statement based on a font category
+     *
+     * The category is usually serif or sans-serif, but may be
+     * other categories from Google Fonts, such as display and
+     * handwriting.
+     */
+    protected function getFontFallback(string $category): string
+    {
+        switch ($category) {
+            case 'serif':
+                return 'serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+            case 'sans-serif':
+            default:
+                return 'system-ui, -apple-system, BlinkMacSystemFont, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+        }
+    }
+
+    /**
+     * Whether or not this theme uses custom fonts
+     *
+     * Checks if Google Fonts have been enabled and the theme
+     * option has been set.
+     */
+    public function usesCustomFonts(): bool
+    {
+        return count($this->enabledFonts)
+            && (
+                $this->theme->getOption('font')
+                || $this->theme->getOption('titlesFont')
+                || $this->theme->getOption('actionsFont')
+            );
     }
 }
