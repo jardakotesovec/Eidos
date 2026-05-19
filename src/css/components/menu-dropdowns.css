@@ -25,6 +25,7 @@
   left: 0;
   min-width: 16rem;
   width: auto;
+  z-index: 9999;
 }
 
 .menu-dropdowns-arrow {
