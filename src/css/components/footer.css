@@ -1,12 +1,12 @@
 .footer {
   --inline-padding: 1rem;
   margin-top: 12rem;
+  background: var(--color-footer-background);
+  color: var(--color-footer-text);
 }
 
 .footer-inner {
   padding: 3rem var(--inline-padding);
-  background: var(--color-footer-background);
-  color: var(--color-footer-text);
 
   & .link {
     color: var(--color-footer-text);
@@ -147,10 +147,20 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1536px) {
 
-  .footer-btm {
-    padding: 1.5rem 3rem;
+  .footer-inner {
+    max-width: 1536px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (min-width: 1600px) {
+
+  .footer-inner {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
