@@ -36,6 +36,19 @@ class Layout extends Component
     }
 
     /**
+     * Add global template data
+     */
+    protected function addGlobalData(): void
+    {
+        view()->share('contextName', $this->contextName());
+        view()->share('getStringSize', [$this, 'getStringSize']);
+        view()->share('locales', $this->getLocales());
+        view()->share('publicationIds', $this->getPublicationIds());
+        view()->share('eidosUrl', $this->getEidosTheme()->getPluginUrl());
+        view()->share('usesCustomFonts', $this->getEidosTheme()->optionsHelper->usesCustomFonts());
+    }
+
+    /**
      * Get the name of the context or site, depending
      * on what kind of page we're viewing.
      */
@@ -93,19 +106,6 @@ class Layout extends Component
     {
         $length = strlen($str);
         return $length <= 40 ? 'xs' : ($length <= 80 ? 'sm' : ($length <= 100 ? 'md' : 'lg'));
-    }
-
-    /**
-     * Add global template data
-     */
-    protected function addGlobalData(): void
-    {
-        view()->share('contextName', $this->contextName());
-        view()->share('getStringSize', [$this, 'getStringSize']);
-        view()->share('locales', $this->getLocales());
-        view()->share('publicationIds', $this->getPublicationIds());
-        view()->share('eidosUrl', $this->getEidosTheme()->getPluginUrl());
-        view()->share('usesCustomFonts', $this->getEidosTheme()->optionsHelper->usesCustomFonts());
     }
 
     /**
@@ -174,7 +174,6 @@ class Layout extends Component
         $templateMgr = TemplateManager::getManager(Application::get()->getRequest());
         /** @var ThemePlugin $activeTheme */
         $activeTheme = $templateMgr->getTemplateVars('activeTheme');
-        error_log(get_class($activeTheme->getRootTheme()));
         return $activeTheme->getRootTheme();
     }
 }

@@ -18,12 +18,15 @@
                     {{
                         $author->getFullName()
                     }}@if ($author->getData('orcid'))
-                        <a href="{{ $author->getData('orcid') }}" target="_blank">
+                        <a class="article-author-orcid" href="{{ $author->getData('orcid') }}" target="_blank">
                             @if ($author->hasVerifiedOrcid())
-                                {{ $orcidIcon }}
+                                {!! $orcidUnauthenticatedIcon!!}
                             @else
-                                {{ $orcidUnauthenticatedIcon}}
+                                {!! $orcidIcon !!}
                             @endif
+                            <span class="sr-only">
+                                {{ $author->getData('orcid') }}
+                            </span>
                         </a>
                     @endif{{
                     ""}}@if ($loop->iteration < $count){{
@@ -32,5 +35,10 @@
                 </li>
             @endforeach
         </ul>
+        <div class="article-authors-more">
+            <x-arrow-link href="#article/authors" :truncate="true">
+                {{ __('plugins.themes.eidos.viewAuthorDetails') }}
+            </x-arrow-link>
+        </div>
     @endif
 </header>

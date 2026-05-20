@@ -1,0 +1,20 @@
+<a
+    class="galley-link"
+    href="{{ $url }}"
+    @if ($labelledBy)
+        aria-labelledBy="{{ $labelledBy }}"
+    @endif
+>
+    @include('components/icons/galley-' . $icon)
+    <span class="galley-link-name">
+        {{ $galley->getGalleyLabel() }}
+        @if (!$access)
+            <span class="galley-link-cost">
+                {{ __('reader.purchasePrice', [
+                    'price' => $currentContext->getSetting('purchaseIssueFee'),
+                    'currency' => $currentContext->getSetting('currency'),
+                ])}}
+            </span>
+        @endif
+    </span>
+</a>

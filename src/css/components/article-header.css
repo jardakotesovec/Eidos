@@ -9,6 +9,30 @@
   font-weight: 600;
 }
 
+.article-authors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 0.5em;
+}
+
+.article-author {
+  display: inline-flex;
+  align-items: center;
+}
+
+.article-author-orcid {
+  @apply tab-focus;
+  margin: -0.75em;
+  margin-inline-start: -0.5em;
+  width: 3em;
+  height: 3em;
+  padding: 0.75em;
+}
+
+/**
+ * Adjustments to the title when using
+ * the default font.
+ */
 .font-default .article-title {
   font-weight: 550;
   font-variation-settings: "wdth" 92;

@@ -1,0 +1,15 @@
+@props([
+    'href',
+    /**
+     * Truncate text instead of wrapping
+     * to multiple lines.
+     */
+    'truncate' => false,
+])
+
+<a class="arrow-link @if ($truncate) arrow-link-truncate @endif" href="{{ $href }}">
+    <span class="arrow-link-text">
+        {{ $slot }}
+    </span>
+    @include('components/icons/arrow-right')
+</a>

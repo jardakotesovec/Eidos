@@ -2,7 +2,7 @@
     title="{{ $currentContext->getLocalizedName() }}"
     description="{{ $currentContext->getLocalizedData('description') }}"
 >
-    <article class="page-container">
+    <article class="page-container flex flex-col gap-16">
 
 
         {{-- Notices when viewing a preview or an old version --}}
@@ -46,8 +46,9 @@
         <x-article-header />
 
         <div class="article-main">
-            <div>highlighted metadata</div>
-            <div>sidebar</div>
+            <div class="article-top-metadata">
+            </div>
+            <x-article-sidebar />
             <div>tabs</div>
         </div>
 
