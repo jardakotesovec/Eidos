@@ -29,8 +29,13 @@
                     </div>
                 @endif
                 <div class="footer-links">
+                    @php
+                        $policyMenu = \Illuminate\Support\Facades\Blade::render(
+                            "@loadMenu(['name' => 'policy', 'id' => 'nav-footer-policy', 'path' => 'components/menu'])"
+                        );
+                    @endphp
                     @if($policyMenu)
-                        @loadMenu(['name' => 'policy', 'id' => 'nav-footer-policy', 'path' => 'components/menu'])
+                        {!! $policyMenu !!}
                     @else
                         <ul class="menu" id="nav-footer-policy">
                             <li class="menu-item">
@@ -47,16 +52,21 @@
                     @endif
                 </div>
                 </div>
-                <div class="footer-block footer-block-menu menu-vertical-wrapper">
+                <div class="footer-block footer-block-menu">
                     @loadMenu(['name' => 'primary', 'id' => 'nav-footer-primary', 'path' => 'components/menu'])
                 </div>
-                <div class="footer-block footer-block-menu menu-vertical-wrapper">
+                <div class="footer-block footer-block-menu">
                     @loadMenu(['name' => 'user', 'id' => 'nav-footer-user', 'path' => 'components/menu'])
                 </div>
             </div>
+            @php
+                $sidebar = \Illuminate\Support\Facades\Blade::render(
+                    "@callHook(['name' => 'Templates::Common::Sidebar'])"
+                );
+            @endphp
             @if($sidebar)
                 <div class="footer-sidebar">
-                    @callHook(['name' => 'Templates::Common::Sidebar'])
+                    {!! $sidebar !!}
                 </div>
             @endif
         </div>

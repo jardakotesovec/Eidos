@@ -74,6 +74,10 @@
       color: var(--color-footer-text);
     }
   }
+
+  & .menu-submenu {
+    display: none;
+  }
 }
 
 .footer-btm {
