@@ -27,6 +27,7 @@ class EidosTheme extends ThemePlugin {
         $this->requiresVueRuntime();
         $this->addViteAssets(['src/main.js']);
         $this->addMenuArea(['primary', 'user', 'homepage', 'policy']);
+        $this->addDefaultMetadataBlocks();
     }
 
     public function getDisplayName() {

@@ -4,17 +4,11 @@ namespace APP\plugins\themes\eidos\classes\components;
 use APP\core\Application;
 use APP\plugins\themes\eidos\EidosTheme;
 use APP\template\TemplateManager;
-use Closure;
-use Illuminate\View\Component;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\View as ViewFacade;
 use PKP\context\Context;
-use PKP\facades\Locale;
-use PKP\i18n\LocaleMetadata;
 use PKP\plugins\ThemePlugin;
 
-class Layout extends Component
+class Layout extends \APP\view\components\Layout
 {
     public function __construct(
         public string $title,
@@ -22,17 +16,7 @@ class Layout extends Component
         public string $bodyClass = '',
         public string $head = '',
     ) {
-        $this->addGlobalData();
-    }
-
-    public function render(): View|Closure|string
-    {
-        return view(
-            ViewFacade::resolvePluginComponentViewPath(
-                $this,
-                'components.layout'
-            )
-        );
+        parent::__construct($title, $description, $bodyClass, $head);
     }
 
     /**
@@ -40,61 +24,11 @@ class Layout extends Component
      */
     protected function addGlobalData(): void
     {
+        parent::addGlobalData();
         view()->share('contextName', $this->contextName());
         view()->share('getStringSize', [$this, 'getStringSize']);
-        view()->share('locales', $this->getLocales());
-        view()->share('publicationIds', $this->getPublicationIds());
         view()->share('eidosUrl', $this->getEidosTheme()->getPluginUrl());
         view()->share('usesCustomFonts', $this->getEidosTheme()->optionsHelper->usesCustomFonts());
-    }
-
-    /**
-     * Get the name of the context or site, depending
-     * on what kind of page we're viewing.
-     */
-    public function contextName() : string
-    {
-        $context = Application::get()->getRequest()->getContext();
-        return $context
-            ? $context->getLocalizedName()
-            : Application::get()->getRequest()->getSite()->getLocalizedTitle();
-    }
-
-    /**
-     * Get the <title> by combining the current page title
-     * with the context or site name.
-     */
-    public function pageTitle() : string
-    {
-        $page = Application::get()->getRequest()->getRequestedPage();
-
-        if ($page === 'index') {
-            return $this->title;
-        }
-
-        return $this->title . __('common.titleSeparator') . $this->contextName();
-    }
-
-    /**
-     * Get classes for the <body> tag which indicate the current
-     * page and op of the request.
-     */
-    public function bodyClasses(): string
-    {
-        $page = Application::get()->getRequest()->getRequestedPage();
-        $op = Application::get()->getRequest()->getRequestedOp();
-
-        $classes = [];
-
-        if ($page) {
-            $classes[] = "pkp-page-{$page}";
-        }
-
-        if ($op) {
-            $classes[] = "pkp-op-{$op}";
-        }
-
-        return join(' ', $classes);
     }
 
     /**
@@ -106,26 +40,6 @@ class Layout extends Component
     {
         $length = strlen($str);
         return $length <= 40 ? 'xs' : ($length <= 80 ? 'sm' : ($length <= 100 ? 'md' : 'lg'));
-    }
-
-    /**
-     * Get an array of all locales supported by the
-     * current context or site.
-     */
-    protected function getLocales(): array
-    {
-        $request = Application::get()->getRequest();
-        $context = $request->getContext();
-
-        $locales = Locale::getFormattedDisplayNames(
-            isset($context)
-                ? $context->getSupportedLocales()
-                : $request->getSite()->getSupportedLocales(),
-            Locale::getLocales(),
-            LocaleMetadata::LANGUAGE_LOCALE_ONLY
-        );
-
-        return $locales;
     }
 
     /**

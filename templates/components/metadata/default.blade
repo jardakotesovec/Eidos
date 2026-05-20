@@ -1,0 +1,11 @@
+@props([
+    'id',
+    'title',
+])
+
+<div class="metadata-block metadata-{{ $id }}">
+    <h3 class="metadata-block-title">
+        {!! $title !!}
+    </h3>
+    {!! $slot !!}
+</div>

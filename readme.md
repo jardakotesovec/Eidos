@@ -74,6 +74,83 @@ A `head` [slot](https://laravel.com/docs/11.x/blade#slots) exists to pass custom
 </x-eidostheme::layout>
 ```
 
+### Article Metadata Blocks
+
+> I think there is still some work to do to decide the right place to store all of these pieces. For now, default blocks are registered by `ThemePlugin`, stored in `PKPTemplateManager`, and loaded by the Eidos theme's `Layout` component.
+
+Every theme can load the default metadata blocks by calling the following in the `init()` function:
+
+```php
+$this->addDefaultMetadataBlocks();
+```
+
+Register a custom metadata block with the template manager:
+
+```php
+$templateMgr = TemplateManager::getManager($this->request);
+$templateMgr->registerArticleMetadataComponent(
+    new MetadataBlock(
+        id: 'keywords',
+        title: 'Keywords',
+        description: 'Example keywords description',
+        component: 'metadata.keywords',
+    )
+);
+```
+
+Optionally pass a `loader` callback function to load custom data.
+
+```php
+$templateMgr = TemplateManager::getManager($this->request);
+$templateMgr->registerArticleMetadataComponent(
+    new MetadataBlock(
+        id: 'metrics',
+        title: 'Metrics',
+        description: 'Example metrics description',
+        component: 'metadata.metrics',
+        loader: function(Publication $publication, Submission $submission) {
+            view()->share('metricsViews', 123);
+            view()->share('metricsDownloads', 50);
+        }
+    )
+);
+```
+
+Templates are loaded based on the `component` property. For example, the component `metadata.default` will load the template at `templates/components/metadata/default.blade`.
+
+```php
+@props([
+    'id',
+    'title',
+])
+
+<div class="metadata-block metadata-{{ $id }}">
+    <h3 class="metadata-block-title">
+        {!! $title !!}
+    </h3>
+    {!! $slot !!}
+</div>
+```
+
+Use the default template for consistent title and content display.
+
+```php
+{{-- templates/components/metadata/keywords.blade --}}
+
+@if (!empty($publication->getLocalizedData('keywords')))
+    <x-metadata.default
+        id="keywords"
+        title="{{ __('article.subject') }}"
+    >
+        <div class="metadata-block-content">
+            @foreach ($publication->getLocalizedData('keywords') as $keyword)
+                {{ $keyword['name'] }}@if(!$loop->last){{ __('common.commaListSeparator') }}@endif
+            @endforeach
+        </div>
+    </x-metadata.default>
+@endif
+```
+
 ### Notice
 
 Use the notice component to add a message, warning, or error.

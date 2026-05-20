@@ -25,6 +25,12 @@ msgstr "Hosted using <a href=\"{$urlOJS}\">Open Journal Systems</a> by <a href=\
 msgid "plugins.themes.eidos.viewAuthorDetails"
 msgstr "View author roles and details"
 
+msgid "plugins.themes.eidos.metrics"
+msgstr "Metrics"
+
+msgid "plugins.themes.eidos.metricsText"
+msgstr "<strong>{$views}</strong> views and <strong>{$downloads}</strong> downloads since {$date}."
+
 msgid "plugins.themes.eidos.option.header.label"
 msgstr "Header"
 

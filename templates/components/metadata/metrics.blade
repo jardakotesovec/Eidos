@@ -1,0 +1,19 @@
+@if (!$metricsViews || !$metricsDownloads)
+    <x-metadata.default
+        id="metrics"
+        title="{{ __('plugins.themes.eidos.metrics') }}"
+    >
+        <div class="metadata-block-content">
+            {!!
+                __(
+                    'plugins.themes.eidos.metricsText',
+                    [
+                        'views' => $metricsViews,
+                        'downloads' => $metricsDownloads,
+                        'date' => ViewHelper::dateFormat($firstPublication->getData('datePublished'), $dateFormatLong)
+                    ]
+                )
+            !!}
+        </div>
+    </x-metadata.default>
+@endif
