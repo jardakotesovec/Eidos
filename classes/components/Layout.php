@@ -6,7 +6,7 @@ use APP\plugins\themes\eidos\EidosTheme;
 use APP\template\TemplateManager;
 use PKP\plugins\ThemePlugin;
 
-class Layout extends \APP\view\components\Layout
+class Layout extends \APP\view\components\AppLayout
 {
     /**
      * Add global template data

@@ -6,40 +6,28 @@ This is the layout used for most pages on the site.
 
 --}}
 
-<!doctype html>
-<html lang="{{ str_replace('_', '-', $currentLocale) }}" xml:lang="{{ str_replace('_', '-', $currentLocale) }}">
+@props([
+    'title',
+    'description',
+])
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ $pageTitle }}</title>
-    @if ($description)
-        <meta name="description" content="{{ strip_tags($description) }}">
-    @endif
-    @loadHeader(['context' => 'frontend'])
-    @loadStylesheet(['context' => 'frontend'])
-    @if (!$usesCustomFonts)
-        <x-eidostheme::default-fonts />
-    @endif
-    @if ($head && !$head->isEmpty())
-        {{ $head }}
-    @endif
-</head>
-
-<body
-    {{
-        $attributes->merge([
-            'class' => join(' ', [
-                $bodyClasses,
-                'site-width-' . $activeTheme->getOption('siteWidth'),
-                'font-' . ($usesCustomFonts ? $activeTheme->getOption('font') : 'default'),
-                'font-titles-' . ($usesCustomFonts ? $activeTheme->getOption('titlesFont') : 'default'),
-                'font-actions-' . ($usesCustomFonts ? $activeTheme->getOption('actionsFont') : 'default'),
-            ]),
-            'dir' => $currentLocaleLangDir ?? 'ltr',
-        ])
-    }}
+<x-app::layout
+    title="{{ $title }}"
+    description="{{ $description }}"
+    class="{{
+        join(' ', [
+            'site-width-' . $activeTheme->getOption('siteWidth'),
+            'font-' . ($usesCustomFonts ? $activeTheme->getOption('font') : 'default'),
+            'font-titles-' . ($usesCustomFonts ? $activeTheme->getOption('titlesFont') : 'default'),
+            'font-actions-' . ($usesCustomFonts ? $activeTheme->getOption('actionsFont') : 'default'),
+        ]),
+    }}"
 >
+    <x-slot:head>
+        @if (!$usesCustomFonts)
+            <x-eidostheme::default-fonts />
+        @endif
+    </x-slot:head>
 
     <x-eidostheme::header-mobile />
     <x-eidostheme::header-desktop />
@@ -48,7 +36,4 @@ This is the layout used for most pages on the site.
 
     <x-eidostheme::footer />
 
-    @loadScript(['context' => 'frontend'])
-</body>
-
-</html>
+</x-app::layout>
