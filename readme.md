@@ -218,18 +218,23 @@ $blocks->register(
 );
 ```
 
-Blocks can also be registered by accessing the metadata registry through the `TemplateManager`.
+A theme should be able to unregister any block. The active theme's callback is called after all other plugins, including parent themes, so it should be able to unregister any other block.
+
+```php
+class ExampleTheme extends ThemePlugin implements HasMetadataBlocks
+{
+    public function registerMetadataBlocks(MetadataBlocksRegistry $blocks): void
+    {
+        $blocks->unregister('doi');
+    }
+}
+```
+
+Blocks can also be registered by accessing the metadata registry through the `TemplateManager`. However, depending on when they are registered, they may not be registered early enough to be exposed to the theme for theme options and unregistration.
 
 ```php
 $templateMgr = TemplateManager::getManager(Application::get()->getRequest());
 $templateMgr->metadataBlocks->register(...);
-```
-
-Themes (or any plugin) can unregister a metadata block if the theme doesn't want it to be displayed in the metadata blocks. For example, a theme may always display the DOI elsewhere on the article landing page.
-
-```php
-$templateMgr = TemplateManager::getManager(Application::get()->getRequest());
-$templateMgr->metadataBlocks->register('doi'); // `id` of the metadata block
 ```
 
 ### Notice
