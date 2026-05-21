@@ -3,10 +3,8 @@
         id="keywords"
         title="{{ __('article.subject') }}"
     >
-        <div class="metadata-block-content">
-            @foreach ($publication->getLocalizedData('keywords') as $keyword)
-                {{ $keyword['name'] }}@if(!$loop->last){{ __('common.commaListSeparator') }}@endif
-            @endforeach
-        </div>
+        @foreach ($publication->getLocalizedData('keywords') as $keyword)
+            {{ $keyword['name'] }}@if(!$loop->last){{ __('common.commaListSeparator') }}@endif
+        @endforeach
     </x-metadata.default>
 @endif

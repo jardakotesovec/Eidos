@@ -2,15 +2,20 @@
 namespace APP\plugins\themes\eidos;
 
 use APP\core\Application;
+use APP\plugins\themes\eidos\classes\MetadataBlocks;
 use APP\plugins\themes\eidos\classes\Options;
 use APP\plugins\themes\eidos\classes\ViteLoader;
 use APP\template\TemplateManager;
 use PKP\db\DAORegistry;
+use PKP\plugins\interfaces\HasMetadataBlocks;
 use PKP\plugins\PluginSettingsDAO;
 use PKP\plugins\ThemePlugin;
+use PKP\view\MetadataBlocksRegistry;
 
-class EidosTheme extends ThemePlugin {
+class EidosTheme extends ThemePlugin implements HasMetadataBlocks
+{
 
+    public MetadataBlocks $metadataBlocks;
     public Options $optionsHelper;
 
     public function isActive()
@@ -20,6 +25,7 @@ class EidosTheme extends ThemePlugin {
     }
 
     public function init() {
+        $this->metadataBlocks = new MetadataBlocks($this);
         $enabledFonts = $this->getEnabledFonts();
         $this->optionsHelper = new Options($this, $enabledFonts);
         $this->optionsHelper->addOptions();
@@ -27,7 +33,6 @@ class EidosTheme extends ThemePlugin {
         $this->requiresVueRuntime();
         $this->addViteAssets(['src/main.js']);
         $this->addMenuArea(['primary', 'user', 'homepage', 'policy']);
-        $this->addDefaultMetadataBlocks();
     }
 
     public function getDisplayName() {
@@ -92,5 +97,10 @@ class EidosTheme extends ThemePlugin {
             return $enabledFonts;
         }
         return [];
+    }
+
+    public function registerMetadataBlocks(MetadataBlocksRegistry $blocks): void
+    {
+        $this->metadataBlocks->register($blocks);
     }
 }

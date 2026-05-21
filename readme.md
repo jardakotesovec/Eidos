@@ -76,79 +76,160 @@ A `head` [slot](https://laravel.com/docs/11.x/blade#slots) exists to pass custom
 
 ### Article Metadata Blocks
 
-> I think there is still some work to do to decide the right place to store all of these pieces. For now, default blocks are registered by `ThemePlugin`, stored in `PKPTemplateManager`, and loaded by the Eidos theme's `Layout` component.
+> I think there is still some work to do to decide the right structure for this feature. For now, there is a new `MetadataBlocksRegistry` which is accessed at `$templateMgr->metadataBlocks`.
+>
+> The current setup is designed for a future where blocks are registered on demand. However, in practice, the theme registers all of its options in the `init()` function, so all blocks are registered with every request anyway. It would be nice to find a setup where theme options aren't registered on the backend, except the website settings page.
 
-Every theme can load the default metadata blocks by calling the following in the `init()` function:
+Every template that uses the default `Layout` component can load and display metadata blocks in a template on the article landing page.
 
 ```php
-$this->addDefaultMetadataBlocks();
+<x-layout>
+
+    ...
+
+    @foreach ($metadata() as $block)
+        <x-dynamic-component
+            :component="$block->component"
+            :title="$block->title"
+            :description="$block->description"
+            :$publication
+            :submission="$article"
+        />
+    @endforeach
+
+    ...
+
+</x-layout>
 ```
 
-Register a custom metadata block with the template manager:
+Each block has a template in the `components/metadata` directory. Themes can override this template with their own.
 
 ```php
-$templateMgr = TemplateManager::getManager($this->request);
-$templateMgr->registerArticleMetadataComponent(
-    new MetadataBlock(
-        id: 'keywords',
-        title: 'Keywords',
-        description: 'Example keywords description',
-        component: 'metadata.keywords',
-    )
-);
+{{-- templates/components/metadata/keywords.blade --}}
+
+<div>
+    <h3>My Keywords</h3>
+    <div>
+        @foreach ($publication->getLocalizedData('keywords') as $keyword)
+            {{ $keyword['name'] }}@if(!$loop->last){{ __('common.commaListSeparator') }}@endif
+        @endforeach
+    </div>
+</div>
 ```
 
-Optionally pass a `loader` callback function to load custom data.
+Use the `<x-metadata.default>` component to show the title and content in a consistent format.
 
 ```php
-$templateMgr = TemplateManager::getManager($this->request);
-$templateMgr->registerArticleMetadataComponent(
+{{-- templates/components/metadata/keywords.blade --}}
+
+<x-metadata.default
+    id="keywords"
+    title="{{ __('article.subject') }}"
+>
+    @foreach ($publication->getLocalizedData('keywords') as $keyword)
+        {{ $keyword['name'] }}@if(!$loop->last){{ __('common.commaListSeparator') }}@endif
+    @endforeach
+</x-metadata.default>
+```
+
+Themes can register their own article metadata blocks by implementing the `HasMetadataBlocks` plugin interface.
+
+```php
+class ExampleTheme extends ThemePlugin implements HasMetadataBlocks
+{
+    public function registerMetadataBlocks(MetadataBlocksRegistry $blocks): void
+    {
+        $blocks->register(
+            new MetadataBlock(
+                id: 'example',
+                title: 'Example Metadata',
+                description: 'This is an example metadata block for code documentation.',
+                /**
+                 * This uses the component path syntax in Blade to
+                 * specify the template to use for this metadata block.
+                 *
+                 * This example would load the template at:
+                 *
+                 * /plugins/themes/exampleTheme/templates/components/metadata/example.blade
+                 *
+                 * @see https://laravel.com/docs/11.x/blade#anonymous-components
+                 */
+                component: 'metadata.example',
+            )
+        );
+    }
+}
+```
+
+Plugins (not themes) need to use the correct [component namespace](https://github.com/pkp/pkp-lib/issues/9968) to load a template from the plugin's directory.
+
+```php
+class ExamplePlugin extends GenericPlugin implements HasMetadataBlocks
+{
+    public function registerMetadataBlocks(MetadataBlocksRegistry $blocks): void
+    {
+        $blocks->register(
+            new MetadataBlock(
+                id: 'example',
+                title: 'Example Metadata',
+                description: 'This is an example metadata block for code documentation.',
+                /**
+                 * Notice the plugin namespace, exampleplugin::,
+                 * which is needed to load the correct component
+                 * template.
+                 *
+                 * In this example, the copmonent template would
+                 * be loaded in:
+                 *
+                 * /plugins/<category>/<plugin>/templates/components/metadata/example.blade
+                 */
+                component: 'exampleplugin::metadata.example',
+            )
+        );
+    }
+}
+```
+
+When registering a `MetadataBlock`, you can optionally pass in a `loader` callback function. Use this to pass data to the template. (Data registered this way is available to all templates, so be sure to use a unique prefix for plugin data.)
+
+```php
+$blocks->register(
     new MetadataBlock(
-        id: 'metrics',
-        title: 'Metrics',
-        description: 'Example metrics description',
-        component: 'metadata.metrics',
+        id: 'example',
+        title: 'Example Metadata',
+        description: 'This is an example metadata block for code documentation.',
+        component: 'exampleplugin::metadata.galley',
+        /**
+         * The callback function receives the current Publication and Submission
+         *
+         * If other data is needed from the template, you can access it through
+         * the TemplateManager.
+         *
+         * Example:
+         *
+         * $templateMgr = TemplateManager::get(Application::get()->getRequest());
+         * $templateMgr->getTemplateVar('metricsByType');
+         */
         loader: function(Publication $publication, Submission $submission) {
-            view()->share('metricsViews', 123);
-            view()->share('metricsDownloads', 50);
+            $daysSince = getDaysSince($publication->getData('datePublished'));
+            view()->share('exampleDaysSincePublished', $daysSince);
         }
     )
 );
 ```
 
-Templates are loaded based on the `component` property. For example, the component `metadata.default` will load the template at `templates/components/metadata/default.blade`.
+Blocks can also be registered by accessing the metadata registry through the `TemplateManager`.
 
 ```php
-@props([
-    'id',
-    'title',
-])
-
-<div class="metadata-block metadata-{{ $id }}">
-    <h3 class="metadata-block-title">
-        {!! $title !!}
-    </h3>
-    {!! $slot !!}
-</div>
+$templateMgr = TemplateManager::getManager(Application::get()->getRequest());
+$templateMgr->metadataBlocks->register(...);
 ```
 
-Use the default template for consistent title and content display.
+Themes (or any plugin) can unregister a metadata block if the theme doesn't want it to be displayed in the metadata blocks. For example, a theme may always display the DOI elsewhere on the article landing page.
 
 ```php
-{{-- templates/components/metadata/keywords.blade --}}
-
-@if (!empty($publication->getLocalizedData('keywords')))
-    <x-metadata.default
-        id="keywords"
-        title="{{ __('article.subject') }}"
-    >
-        <div class="metadata-block-content">
-            @foreach ($publication->getLocalizedData('keywords') as $keyword)
-                {{ $keyword['name'] }}@if(!$loop->last){{ __('common.commaListSeparator') }}@endif
-            @endforeach
-        </div>
-    </x-metadata.default>
-@endif
+$templateMgr = TemplateManager::getManager(Application::get()->getRequest());
+$templateMgr->metadataBlocks->register('doi'); // `id` of the metadata block
 ```
 
 ### Notice

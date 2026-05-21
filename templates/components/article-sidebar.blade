@@ -39,7 +39,7 @@
             </ul>
         </x-dropdown>
     </div>
-    @foreach ($articleMetadata() as $block)
+    @foreach ($metadata() as $block)
         <x-dynamic-component
             :component="$block->component"
             :title="$block->title"

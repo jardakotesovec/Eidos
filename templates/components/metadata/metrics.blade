@@ -3,17 +3,15 @@
         id="metrics"
         title="{{ __('plugins.themes.eidos.metrics') }}"
     >
-        <div class="metadata-block-content">
-            {!!
-                __(
-                    'plugins.themes.eidos.metricsText',
-                    [
-                        'views' => $metricsViews,
-                        'downloads' => $metricsDownloads,
-                        'date' => ViewHelper::dateFormat($firstPublication->getData('datePublished'), $dateFormatLong)
-                    ]
-                )
-            !!}
-        </div>
+        {!!
+            __(
+                'plugins.themes.eidos.metricsText',
+                [
+                    'views' => $metricsViews,
+                    'downloads' => $metricsDownloads,
+                    'date' => ViewHelper::dateFormat($firstPublication->getData('datePublished'), $dateFormatLong)
+                ]
+            )
+        !!}
     </x-metadata.default>
 @endif

@@ -12,7 +12,7 @@
                         {{ $siteName }}
                     </h1>
                     <img
-                        alt="{{ $displayPageHeaderLogo['alt']}}"
+                        alt="@if(isset($displayPageHeaderLogo['alt'])){{ $displayPageHeaderLogo['alt'] }}@endif"
                         class="header-mobile-logo"
                         src="{{ $publicFilesDir }}/{{ $displayPageHeaderLogo['uploadName'] }}"
                     >

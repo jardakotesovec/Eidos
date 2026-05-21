@@ -13,14 +13,14 @@
     @if ($activeTheme->getOption('header') === 'default' && $homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
         <div class="header-desktop-above">
             <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
-                alt="{{ $homepageImage['altText'] }}">
+                alt="@if(isset($homepageImage['altText'])){{ $homepageImage['altText'] }}@endif">
         </div>
     @endif
     <div class="header-desktop-inner">
         @if ($homepageImage && $activeTheme->getOption('homepageImagePosition') === 'behind')
             <div class="header-desktop-behind">
                 <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
-                    alt="{{ $homepageImage['altText'] }}">
+                    alt="@if(isset($homepageImage['altText'])){{ $homepageImage['altText'] }}@endif">
             </div>
         @endif
         <div class="header-desktop-inner-content">
@@ -32,7 +32,7 @@
                 @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['above']))
                     <div class="header-desktop-above">
                         <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
-                            alt="{{ $homepageImage['altText'] }}">
+                            alt="@if(isset($homepageImage['altText'])){{ $homepageImage['altText'] }}@endif">
                     </div>
                 @else
                     <div class="header-desktop-row">
@@ -86,7 +86,7 @@
     @if ($homepageImage && in_array($activeTheme->getOption('homepageImagePosition'), ['below']))
         <div class="header-desktop-below">
             <img class="header-desktop-image" src="{{ $publicFilesDir }}/{{ $homepageImage['uploadName'] }}"
-                alt="{{ $homepageImage['altText'] }}">
+                alt="@if(isset($homepageImage['altText'])){{ $homepageImage['altText'] }}@endif">
         </div>
     @endif
 </header>
